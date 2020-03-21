@@ -1,0 +1,18 @@
+<ion-content padding expand="full" color="dark">
+    <app-image-generator [ruta]="pathFotografia" [nombreImagen]="nombreImagen"></app-image-generator>
+    <ion-button
+            type="submit"
+            (click)="guardarFotografia()"
+            color="success"
+            expand="block">Guardar
+        <ion-icon slot="start" name="save"></ion-icon>
+    </ion-button>
+    <ion-button
+            type="submit"
+            (click)="salirModal()"
+            color="warning"
+            expand="block">Cancelar
+        <ion-icon slot="start" name="cancel"></ion-icon>
+    </ion-button>
+</ion-content>
+

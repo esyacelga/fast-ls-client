@@ -1,0 +1,39 @@
+<div *ngIf="!imagen && nombreImagen" fixed>
+    <ion-card size="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+        <ion-slide class="image-slide"
+                   [style]="(nombreImagen | imagen: ruta ) | domSanitizer ">
+        </ion-slide>
+    </ion-card>
+</div>
+<div *ngIf="imagen && nombreImagen">
+    <ion-col size="12" *ngIf="imagen">
+        <ion-card>
+            <img [src]="imagen | imageSanitizer">
+        </ion-card>
+    </ion-col>
+</div>
+
+<div *ngIf="!imagen && !nombreImagen">
+    <ion-col>
+        <ion-card>
+            <img src="/assets/img/pre-imagen.png">
+        </ion-card>
+    </ion-col>
+</div>
+
+<ion-button
+        type="submit"
+        (click)="camara()"
+        color="tertiary"
+        expand="block">Tomar Foto
+    <ion-icon slot="start" name="camera"></ion-icon>
+</ion-button>
+
+<ion-button
+        type="submit"
+        (click)="libreria()"
+        color="tertiary"
+        expand="block">Seleccionar Imagen
+    <ion-icon slot="start" name="images"></ion-icon>
+</ion-button>
+

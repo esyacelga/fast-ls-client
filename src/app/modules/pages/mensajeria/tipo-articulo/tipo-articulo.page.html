@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Tipo articulo</ion-title>
+    <ion-button ion-button color="primary"
+                slot="start"
+                *ngIf="!objTipoArticulo"
+                (click)="crearNuevo()">NUEVO
+    </ion-button>
+    <ion-button ion-button color="primary" slot="start"
+                *ngIf="objTipoArticulo"
+                (click)="objTipoArticulo=null">CANCELAR
+    </ion-button>
+    <ion-button ion-button color="primary"
+                slot="end"
+                *ngIf="objTipoArticulo"
+                (click)="registrarTipoArticulo(objTipoArticulo)">GUARDAR
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+  <ion-list *ngIf="objTipoArticulo" color="dark">
+    <ion-item color="dark">
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input class="ion-text-uppercase" [(ngModel)]="objTipoArticulo.nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-input class="ion-text-uppercase" [(ngModel)]="objTipoArticulo.descripcion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Codigo</ion-label>
+      <ion-input class="ion-text-uppercase" [(ngModel)]="objTipoArticulo.codigo"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="!objTipoArticulo"
+  >
+    <ion-item-sliding *ngFor="let item of lstTipoArticulos; let i = index">
+      <ion-item color="dark">
+        <ion-label>{{item.nombre | uppercase}}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="tertiary" (click)="objTipoArticulo=item">
+          <ion-icon slot="icon-only" ios="ios-list-box" md="md-list-box"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="eliminarTipoArticulo(item)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

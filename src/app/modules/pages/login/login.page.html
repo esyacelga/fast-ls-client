@@ -1,0 +1,197 @@
+<ion-content color="dark">
+
+
+  <ion-slides class="mainSlide" #slidePrincipal>
+    <ion-slide>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col>
+            <img src="/assets/avatars/av-1.png">
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <form [formGroup]="ingresoForm" (ngSubmit)="login()">
+              <ion-row>
+                <ion-col>
+                  <ion-list class="background-input">
+
+                    <ion-item [hidden]="true">
+                      <ion-input></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-input formControlName="correo" type="email"
+                                 placeholder="Email"></ion-input>
+                    </ion-item>
+
+
+                    <ion-item>
+                      <ion-input formControlName="clave" type="password"
+                                 placeholder="Password"></ion-input>
+                    </ion-item>
+
+
+                    <ion-item [hidden]="true">
+                      <ion-input
+                              placeholder="Password"></ion-input>
+                    </ion-item>
+
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <ion-button
+                          type="submit"
+                          color="tertiary"
+                          expand="block">Ingresar
+                  </ion-button>
+                  <ion-button
+                          type="button"
+                          color="tertiary"
+                          (click)="mostrarRegistro()"
+                          expand="block">Registrar
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </form>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-grid fixed>
+        <app-avatar-selector (avatarSel)="registerUser.avatar = $event"></app-avatar-selector>
+        <form [formGroup]="loginForm" (ngSubmit)="registerNewUser()">
+          <ion-row>
+            <ion-col>
+              <ion-list class="background-input">
+                <ion-item>
+                  <ion-label position="floating">Nombres</ion-label>
+                  <ion-input formControlName="nombres"></ion-input>
+                </ion-item>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.nombres">
+                    <div class="error-message"
+                         *ngIf="loginForm.get('nombres').hasError(error.type) && (loginForm.get('nombres').dirty || loginForm.get('nombres').touched) ">
+                      {{error.message}}
+                    </div>
+                  </ng-container>
+                </div>
+                <ion-item>
+                  <ion-label position="floating">Apellidos</ion-label>
+                  <ion-input formControlName="apellidos"></ion-input>
+                </ion-item>
+
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.apellidos">
+                    <div class="error-message"
+                         *ngIf="loginForm.get('apellidos').hasError(error.type) && (loginForm.get('apellidos').dirty || loginForm.get('apellidos').touched) ">
+                      {{error.message}}
+                    </div>
+                  </ng-container>
+                </div>
+                <ion-item>
+                  <ion-label>Fecha de nacimiento</ion-label>
+                  <ion-datetime formControlName="fechaNacimiento"
+                                display-format="MMM DD, YYYY"></ion-datetime>
+                </ion-item>
+
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.fechaNacimiento">
+                    <div class="error-message"
+                         *ngIf="loginForm.get('fechaNacimiento').hasError(error.type) && (loginForm.get('fechaNacimiento').dirty || loginForm.get('fechaNacimiento').touched) ">
+                      {{error.message}}
+                    </div>
+                  </ng-container>
+                </div>
+
+                <ion-item>
+                  <ion-label>Sector de domicilio</ion-label>
+                  <ion-select ngModel="segmentoArticulo.sector" formControlName="sector"
+                              value="sector._id" okText="Ok" cancelText="Cancelar">
+                    <ion-select-option *ngFor="let sector  of lstSectores"
+                                       value="{{sector._id}}">{{sector.descripcion}}
+
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+
+                <!--<ion-item>
+                  <ion-label position="floating">Sector</ion-label>
+                  <ion-input maxlength="13" formControlName="identificacion"></ion-input>
+                </ion-item>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.identificacion">
+                    <div class="error-message"
+                         *ngIf="loginForm.get('identificacion').hasError(error.type) && (loginForm.get('identificacion').dirty || loginForm.get('identificacion').touched) ">
+                      {{error.message}}
+                    </div>
+                  </ng-container>
+                </div>-->
+
+
+                <ion-item>
+                  <ion-input formControlName="correo" type="text" placeholder="Email"></ion-input>
+                </ion-item>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.correo">
+                    <div class="error-message"
+                         *ngIf="loginForm.get('correo').hasError(error.type) && (loginForm.get('correo').dirty || loginForm.get('correo').touched) ">
+                      {{error.message}}
+                    </div>
+                  </ng-container>
+                </div>
+                <ion-item>
+                  <ion-input formControlName="clave" type="password"
+                             placeholder="Password"></ion-input>
+                </ion-item>
+                <div class="error-messages">
+                  <ng-container *ngFor="let error of error_messages.clave">
+                    <div class="error-message"
+                         *ngIf="loginForm.get('clave').hasError(error.type) && (loginForm.get('clave').dirty || loginForm.get('clave').touched) ">
+                      {{error.message}}
+                    </div>
+                  </ng-container>
+                </div>
+
+                <ion-item>
+                  <ion-input formControlName="passwordValidator" type="password"
+                             placeholder="Password"></ion-input>
+                </ion-item>
+                <div class="error-messages" *ngIf="loginForm.errors?.sonIguales && !loginForm.pristine">
+                  <ng-container>
+                    <div class="error-message">
+                      Las contraseñas deben ser iguales
+                    </div>
+                  </ng-container>
+                </div>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-button
+                      type="submit"
+                      color="tertiary"
+                      expand="block">Crear usuario
+              </ion-button>
+              <ion-button
+                      color="tertiary"
+                      (click)="mostrarLogin()"
+                      expand="block">Ingresar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

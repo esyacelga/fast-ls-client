@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-title>Vehiculos</ion-title>
+        <ion-button ion-button color="primary"
+                    slot="start"
+                    *ngIf="!objVehiculo"
+                    (click)="crearNuevo()">NUEVO
+        </ion-button>
+        <ion-button ion-button color="primary" slot="start"
+                    *ngIf="objVehiculo"
+                    (click)="objVehiculo=null">CANCELAR
+        </ion-button>
+        <ion-button ion-button color="primary"
+                    slot="end"
+                    *ngIf="objVehiculo"
+                    (click)="registrar(objVehiculo)">GUARDAR
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+    <ion-list *ngIf="objVehiculo"
+    >
+        <ion-item color="dark">
+            <ion-label position="floating">Marca</ion-label>
+            <ion-input class="ion-text-uppercase" [(ngModel)]="objVehiculo.marca"></ion-input>
+        </ion-item>
+
+        <ion-item color="dark">
+            <ion-label position="floating">Modelo</ion-label>
+            <ion-input class="ion-text-uppercase" [(ngModel)]="objVehiculo.modelo"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+            <ion-label position="floating">Placa</ion-label>
+            <ion-input class="ion-text-uppercase" [(ngModel)]="objVehiculo.placa"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+            <ion-label position="floating">Color</ion-label>
+            <ion-input class="ion-text-uppercase" [(ngModel)]="objVehiculo.color"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+            <ion-label position="floating">Tipo</ion-label>
+            <ion-input class="ion-text-uppercase" [(ngModel)]="objVehiculo.tipo"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="!objVehiculo && lstVehiculo && lstVehiculo.length>0"
+    >
+        <ion-item-sliding *ngFor="let item of lstVehiculo; let i = index">
+            <ion-item color="dark">
+                <ion-label>{{item.placa | uppercase}}-{{item.marca | uppercase}}-{{item.modelo | uppercase}}</ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="tertiary" (click)="objVehiculo=item">
+                    <ion-icon slot="icon-only" ios="ios-list-box" md="md-list-box"></ion-icon>
+                </ion-item-option>
+                <ion-item-option color="danger" (click)="eliminar(item)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,64 @@
+[
+  {
+    "icon": "person",
+    "name": "Usuarios",
+    "redirectTo": "/rol-persona"
+  },
+  {
+    "icon": "car",
+    "name": "Vehiculo",
+    "redirectTo": "/vehiculo"
+  },
+  {
+    "icon": "car",
+    "name": "Unidad",
+    "redirectTo": "/unidad-disponibilidad"
+  },
+  {
+    "icon": "hammer",
+    "name": "Tipo usuario",
+    "redirectTo": "/tipo-usuario"
+  },
+  {
+    "icon": "hammer",
+    "name": "Sector",
+    "redirectTo": "/sector"
+  },
+  {
+    "icon": "hammer",
+    "name": "Tipo Artículo",
+    "redirectTo": "/tipo-articulo"
+  },
+  {
+    "icon": "hammer",
+    "name": "Estado Disponibilidad",
+    "redirectTo": "/estado-ruta"
+  },
+  {
+    "icon": "logo-apple",
+    "name": "Artículo",
+    "redirectTo": "/articulo"
+  },
+  {
+    "icon": "grid",
+    "name": "Segmento",
+    "redirectTo": "/segmento"
+  },
+  {
+    "icon": "hammer",
+    "name": "Notificador",
+    "redirectTo": "/notificacion-masiva"
+  },
+
+  {
+    "icon": "navigate",
+    "name": "Pedidos",
+    "redirectTo": "/managment"
+  },
+  {
+    "icon": "code-working",
+    "name": "Main",
+    "redirectTo": "/main"
+  }
+]
+	  

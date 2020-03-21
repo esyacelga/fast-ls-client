@@ -1,0 +1,114 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-title  *ngIf="!articulo" >Articulos</ion-title>
+        <ion-button ion-button color="primary"
+                    slot="start"
+                    *ngIf="!articulo"
+                    (click)="crearNuevo()">Nuevo
+        </ion-button>
+        <ion-button ion-button color="primary" slot="start"
+                    *ngIf="articulo"
+                    (click)="articulo=null">Cancelar
+        </ion-button>
+        <ion-button ion-button color="success"
+                    slot="end"
+                    *ngIf="articulo"
+                    (click)="registrarNuevo(articulo)">Guardar
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+    <ion-list *ngIf="!articulo">
+        <ion-item-group color="dark" *ngFor="let item of result; let i = index">
+            <ion-item-divider color="">
+                <ion-label><h5>{{item.descripcion}}</h5></ion-label>
+            </ion-item-divider>
+            <ion-item-sliding *ngFor="let data of lstArticulo | filter:{articuloSegmento: item._id}; let i = index">
+                <ion-item color="dark">
+                    <ion-label>{{data.descripcion | uppercase}}</ion-label>
+                </ion-item>
+                <ion-item-options side="end">
+                    <ion-item-option color="tertiary" (click)="articulo=data">
+                        <ion-icon slot="icon-only" ios="ios-list-box" md="md-list-box"></ion-icon>
+                    </ion-item-option>
+                    <ion-item-option color="danger" (click)="eliminar(data)">
+                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-item-group>
+    </ion-list>
+
+    <ion-list *ngIf="articulo">
+        <ion-item color="dark">
+            <ion-label position="floating">Descripcion</ion-label>
+            <ion-input class="ion-text-uppercase" [(ngModel)]="articulo.descripcion"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+            <ion-label position="floating">Unidad Almacenada</ion-label>
+            <ion-input type="number" class="ion-text-uppercase" [(ngModel)]="articulo.unidadAlmacenada"></ion-input>
+        </ion-item >
+        <ion-item color="dark">
+            <ion-label position="floating">Costo por unidad</ion-label>
+            <ion-input type="number" class="ion-text-uppercase" [(ngModel)]="articulo.unidadCosto"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+            <ion-label>Tipo Artículo</ion-label>
+            <ion-select [(ngModel)]="articulo.articuloSegmento.tipoArticulo"
+                        okText="Okay" cancelText="Dismiss">
+                <ion-select-option *ngFor="let item  of lstTipoArticulo"
+                                   value="{{item._id}}">{{item.nombre|uppercase}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item color="dark">
+            <ion-label>Segmento</ion-label>
+            <ion-select [(ngModel)]="articulo.articuloSegmento._id"
+                        okText="Okay" cancelText="Dismiss">
+                <ion-select-option
+                        *ngFor="let item  of lstSegmento | filtroSegmento:{tipoArticulo: articulo.articuloSegmento.tipoArticulo}; "
+                        value="{{item._id}}">{{item.descripcion|uppercase}}</ion-select-option>
+            </ion-select>
+
+        </ion-item>
+
+        <ion-row>
+            <ion-col size="6">
+                <ion-button expand="full"
+                            ion-button
+                            (click)="camara()"
+                            shape="round">
+                    <ion-icon slot="start" name="camera"></ion-icon>
+                    Cámara
+                </ion-button>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button expand="full"
+                            ion-button
+                            (click)="libreria()"
+                            shape="round">
+                    <ion-icon slot="start" name="images"></ion-icon>
+                    Galería
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-col size="3" *ngIf="!articulo.imagenEditada">
+            ACTUAL
+            <ion-card>
+
+                <ion-slide class="image-slide"
+                           [style]=" (articulo.portada | imagen: articulo.articuloSegmento._id ) | domSanitizer ">
+                </ion-slide>
+                <ion-label>{{articulo.portada}}</ion-label>
+            </ion-card>
+        </ion-col>
+        <ion-col size="3" *ngIf="articulo.imagenEditada">
+            EDITADO
+            <ion-card>
+                <img [src]="articulo.imagenEditada | imageSanitizer">
+            </ion-card>
+        </ion-col>
+    </ion-list>
+</ion-content>
+

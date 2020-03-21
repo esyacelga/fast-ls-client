@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-button ion-button color="primary"
+                    slot="end"
+                    (click)="solicitudServicio()">Solicitar
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+<ion-content color="dark">
+
+    <app-solicitud-ruta [modeloDisponibilidad]="objDisponibilidad"></app-solicitud-ruta>
+    <ion-list [hidden]="objDisponibilidad" *ngFor="let item of lstUnidadDisponible">
+        <ion-item (click)="objDisponibilidad= item" color="dark">
+            <ion-avatar slot="start">
+                <img *ngIf="!item.tipoUsuarioPersona.imagen"
+                     src="/assets/avatars/{{ item.tipoUsuarioPersona.usuario.avatar }}">
+                <img *ngIf="item.tipoUsuarioPersona.imagen"
+                     [src]="(item.tipoUsuarioPersona.imagen | imagen: item.tipoUsuarioPersona._id )|urlSanitizer">
+            </ion-avatar>
+            <ion-label>
+                <h2>{{item.tipoUsuarioPersona.persona.nombres}}{{' '}} {{item.tipoUsuarioPersona.persona.apellidos}}</h2>
+                <h3>Unidad:{{' '}}{{item.nombreAlias}}</h3>
+                <p>Placa:{{' '}}{{item.vehiculo.placa}}</p>
+            </ion-label>
+            <ion-badge slot="end"
+                       color="{{ item.estadoDiponibilidad.color }}">{{item.estadoDiponibilidad.nombre}}</ion-badge>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

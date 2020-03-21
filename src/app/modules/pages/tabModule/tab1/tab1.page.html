@@ -1,0 +1,33 @@
+<ion-header *ngIf="tipoArticulo">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start" (click)="tipoArticulo=undefined">
+      <ion-back-button defaultHref="/main"></ion-back-button>
+      Regresar
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="dark">
+
+  <app-item-seleccionado size="12" size-lg="12" size-md="12" size-sm="12" size-xs="12"
+                         *ngIf="tipoArticulo" [tipoArticulo]="tipoArticulo">
+  </app-item-seleccionado>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"
+               [hidden]="tipoArticulo" *ngFor="let item of lstTipoArticulo">
+        <ion-card (click)="selecionar(item)" color="dark">
+          <ion-card-header>
+            <ion-card-subtitle>Seleccione</ion-card-subtitle>
+            <ion-card-title>{{item.nombre}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            {{item.descripcion}}
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

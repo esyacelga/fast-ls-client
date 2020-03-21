@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>TIPO USUARIO</ion-title>
+    <ion-button ion-button color="primary"
+                slot="start"
+                *ngIf="!objTipoUsuario"
+                (click)="crearNuevo()">NUEVO
+    </ion-button>
+    <ion-button ion-button color="primary" slot="start"
+                *ngIf="objTipoUsuario"
+                (click)="objTipoUsuario=null">CANCELAR
+    </ion-button>
+    <ion-button ion-button color="primary"
+                slot="end"
+                *ngIf="objTipoUsuario"
+                (click)="registrar(objTipoUsuario)">GUARDAR
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+  <ion-list *ngIf="objTipoUsuario"
+  >
+    <ion-item>
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-input class="ion-text-uppercase" [(ngModel)]="objTipoUsuario.descripcion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Codigo</ion-label>
+      <ion-input class="ion-text-uppercase" [(ngModel)]="objTipoUsuario.codigo"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="!objTipoUsuario"
+  >
+    <ion-item-sliding *ngFor="let item of lstTipoUsuario; let i = index">
+      <ion-item color="dark">
+        <ion-label>{{item.descripcion | uppercase}}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="tertiary" (click)="objTipoUsuario=item">
+          <ion-icon slot="icon-only" ios="ios-list-box" md="md-list-box"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="eliminar(item)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

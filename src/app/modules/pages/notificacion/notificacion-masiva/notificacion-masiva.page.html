@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-title>Notificador</ion-title>
+        <ion-button ion-button color="primary"
+                    slot="start"
+                    *ngIf="!objNotificacion"
+                    (click)="crearNuevo()">NUEVO
+        </ion-button>
+        <ion-button ion-button color="primary" slot="start"
+                    *ngIf="objNotificacion"
+                    (click)="objNotificacion=null">CANCELAR
+        </ion-button>
+        <ion-button ion-button color="primary"
+                    slot="end"
+                    *ngIf="objNotificacion"
+                    (click)="registrar(objNotificacion)">GUARDAR
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+    <ion-list *ngIf="objNotificacion">
+        <ion-item color="dark">
+            <ion-label position="floating">Titulo</ion-label>
+            <ion-input  [(ngModel)]="objNotificacion.titulo"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+            <ion-label position="floating">Mensaje Titulo</ion-label>
+            <ion-input  [(ngModel)]="objNotificacion.mensajeTitulo"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+            <ion-label position="floating">key</ion-label>
+            <ion-input  [(ngModel)]="objNotificacion.key"></ion-input>
+        </ion-item>
+
+        <ion-item color="dark">
+            <ion-label position="floating">Contenido Mensaje</ion-label>
+            <ion-input  [(ngModel)]="objNotificacion.keyPayload"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+            <ion-label>Segmento de Usuarios</ion-label>
+            <ion-select [(ngModel)]="objNotificacion.tipoUsuario"
+                        okText="Seleccionar" cancelText="Cancelar">
+                <ion-select-option *ngFor="let item  of lstTipoUsuario"
+                                   value="{{item._id}}">{{item.descripcion|uppercase}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+    </ion-list>
+
+    <ion-list *ngIf="!objNotificacion"
+    >
+        <ion-item-sliding *ngFor="let item of lstNotificacionModel; let i = index">
+            <ion-item color="dark">
+                <ion-label>
+                    <h2>{{item.titulo}}</h2>
+                    <p>{{item.mensajeTitulo}}</p>
+                    <p>{{item.keyPayload}}</p>
+                </ion-label>
+                <ion-note slot="end">
+                    {{item.key}}
+                </ion-note>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="warning" (click)="objNotificacion=item">
+                    <ion-icon slot="icon-only" ios="ios-paper-plane" md="md-paper-plane"></ion-icon>
+                </ion-item-option>
+                <ion-item-option color="danger" (click)="eliminar(item)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

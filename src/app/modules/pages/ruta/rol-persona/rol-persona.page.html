@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-title>Usuario</ion-title>
+        <ion-button ion-button color="primary" slot="start"
+                    *ngIf="objPersona"
+                    (click)="objPersona=null">CANCELAR
+        </ion-button>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content fullscreen color="dark">
+    <ion-list [hidden]="objPersona" *ngFor="let persona of lstPersona">
+        <ion-item color="dark" (click)="selecionPersona(persona._id);objPersona=persona">
+            <ion-avatar slot="start">
+                <img src="/assets/avatars/{{ persona.avatar}}">
+            </ion-avatar>
+            <ion-label>
+                <h2>{{persona.apellidos}}{{' '}} {{persona.nombres}}</h2>
+                <h3>{{persona.correo}}</h3>
+                <p>{{persona.fechaNacimiento}}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="objPersona">
+        <section text-center>
+            <header>{{objPersona.apellidos}}{{' '}} {{objPersona.nombres}}</header>
+            <header>{{objPersona.correo}}</header>
+            <header>{{objPersona.fechaNacimiento}}</header>
+        </section>
+
+        <div *ngFor="let item of lstTipoUsuarioPersona">
+            <ion-item color="dark">
+                <ion-label>{{item.tipoUsuario.descripcion}}</ion-label>
+                <ion-note slot="end" color="primary">{{item.usuario.playerId}}</ion-note>
+            </ion-item>
+        </div>
+        <section *ngFor="let iterador of lstTipoUsuario">
+            <ion-button (click)="crearRol(iterador)" expand="block">ROL {{' '}}{{iterador.descripcion}}</ion-button>
+        </section>
+    </ion-list>
+
+</ion-content>

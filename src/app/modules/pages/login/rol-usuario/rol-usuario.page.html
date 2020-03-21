@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-title>Seleccione un Rol</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark" fullscreen>
+    <ion-list *ngFor="let item of lstTipoUsuarioPersona">
+        <ion-item color="dark" (click)="setearRol(item)">
+            <ion-label>{{item.tipoUsuario.descripcion}}</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <section>
+        <ion-button routerLink="/login" expand="block">Regresara a Login</ion-button>
+    </section>
+</ion-content>

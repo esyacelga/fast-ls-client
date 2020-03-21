@@ -1,0 +1,10 @@
+<ion-item (click)="contenedor=item" color="dark" *ngFor="let item of lstPedidoRemen">
+  <ion-avatar slot="start">
+    <img src="/assets/avatars/{{ item.pedido.tipoUsuarioPerona.usuario.avatar }}">
+  </ion-avatar>
+  <ion-label>
+    <h2>{{item.pedido.tipoUsuarioPerona.persona.apellidos}}{{' '}}{{item.pedido.tipoUsuarioPerona.persona.nombres}}</h2>
+    <h3>Valor Total: {{' '}}{{item.total.toFixed(2)}}</h3>
+    <p> # {{' '}}{{item.pedido._id}}</p>
+  </ion-label>
+</ion-item>
