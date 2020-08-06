@@ -44,6 +44,10 @@ export class LoginPage implements OnInit {
     @ViewChild('slidePrincipal') slides: IonSlides;
 
 
+    loginGoogle() {
+        console.log('Hola munndo');
+    }
+
     construirFormLogin() {
         this.ingresoForm = this.formFuilder.group({
             correo: new FormControl('', Validators.compose([
