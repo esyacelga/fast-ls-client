@@ -166,14 +166,14 @@ export class ExecuteCallProcedureService {
                     await this.loading.dismiss('messagesService.loadMessagesOverview');
                     this.presentToast(mensaje, COLOR_TOAST_ERROR);
                 }
-/*
-                if (options.mostrar === 1) {
-                    await this.loading.dismiss('messagesService.loadMessagesOverview');
-                }
-                if (options.mostrar === 1) {
-                    this.presentToast(options.errorMessage, COLOR_TOAST_ERROR);
-                }
-*/
+                /*
+                                if (options.mostrar === 1) {
+                                    await this.loading.dismiss('messagesService.loadMessagesOverview');
+                                }
+                                if (options.mostrar === 1) {
+                                    this.presentToast(options.errorMessage, COLOR_TOAST_ERROR);
+                                }
+                */
                 reject(error);
             });
         });
@@ -189,6 +189,10 @@ export class ExecuteCallProcedureService {
             }
         }
         tituloError = '<p>' + tituloError + '</p>';
+        console.log(error);
+        if (error.error.errors === undefined) {
+            return 'Error de conexion al servidor de aplicaciones';
+        }
         detalleError = this.lectorError(error.error.errors.errors);
         if (this.mostrarMensaje === true) {
             return tituloError + ' </br> ' + detalleError;
@@ -232,7 +236,7 @@ export class ExecuteCallProcedureService {
 
             await this.loading.present('messagesService.loadMessagesOverview', messages.loadingMessage);
             if (!genericObject._id) {
-                
+
                 this.restConnection.genericPostRestFull(genericObject, urlRestService).subscribe(async resp => {
                     await this.loading.dismiss('messagesService.loadMessagesOverview');
                     this.presentToast(messages.successMessaje, messages.toastColor);

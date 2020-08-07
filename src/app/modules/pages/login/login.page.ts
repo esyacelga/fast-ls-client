@@ -16,6 +16,7 @@ import {COLOR_TOAST_WARNING} from '../../system/generic/classes/constant';
 import {PushNotificationService} from '../../system/generic/service/push-notification.service';
 import {ModeloTipoUsuarioPersona, ModeloUsuario} from '../../classes/persona/TipoUsuarioPersona';
 import {Router} from '@angular/router';
+import {LoginService} from '../../services/persona/login.service';
 
 @Component({
     selector: 'app-login',
@@ -45,7 +46,12 @@ export class LoginPage implements OnInit {
 
 
     loginGoogle() {
-        console.log('Hola munndo');
+        this.svrLogin.loginWithGoogle().then(data => {
+            this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
+            console.log(data);
+        }).catch(error => {
+            this.util.presentToast(error.code + ' ' + error.message, COLOR_TOAST_WARNING);
+        });
     }
 
     construirFormLogin() {
@@ -106,6 +112,7 @@ export class LoginPage implements OnInit {
     }
 
     constructor(private formFuilder: FormBuilder, private  util: Util,
+                private svrLogin: LoginService,
                 private svrUsuario: UsuarioService,
                 private navCtrl: NavController,
                 private svrRoute: Router,
@@ -129,7 +136,6 @@ export class LoginPage implements OnInit {
         this.lstSectores = await this.svrSector.obtenerSectores();
         // @ts-ignore
         this.objTipoUsuario = await this.svrTipoUsuario.buscarRegistro('descripcion', 'CLIENTE');
-        console.log(this.lstSectores);
     }
 
     isEquals(campo: string, campoToValidate: string) {
@@ -152,7 +158,8 @@ export class LoginPage implements OnInit {
             this.util.presentToast('Debe ingresar la información solicitada, (Usuario, Contraseña ).', COLOR_TOAST_WARNING);
             return;
         }
-        const data: ModeloTipoUsuarioPersona[] = (await this.svrUsuario.loginUsuario(this.ingresoForm.value.correo, this.ingresoForm.value.clave)) as ModeloTipoUsuarioPersona[];
+        const data: ModeloTipoUsuarioPersona[] = (await this.svrUsuario.loginUsuario(
+            this.ingresoForm.value.correo, this.ingresoForm.value.clave)) as ModeloTipoUsuarioPersona[];
         if (data && data.length > 0) {
             const objUsuario: ModeloUsuario = data[0].usuario;
             await this.svrUsuario.actualizarPlayerId(objUsuario);

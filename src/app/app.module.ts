@@ -15,12 +15,19 @@ import {OneSignal} from '@ionic-native/onesignal/ngx';
 import {ComponentModule} from './modules/components/component.module';
 import {IonicStorageModule} from '@ionic/storage';
 import {MenuComponent} from './modules/components/menu/menu.component';
+import {GooglePlus} from '@ionic-native/google-plus/ngx';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+
 
 @NgModule({
     declarations: [AppComponent, MenuComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, RestConectionModule, IonicStorageModule.forRoot()],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, RestConectionModule,
+        IonicStorageModule.forRoot(), AngularFireAuthModule, AngularFireModule.initializeApp(environment)],
     providers: [
+        GooglePlus,
         ComponentModule,
         Camera,
         FileTransfer,

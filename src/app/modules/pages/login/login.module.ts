@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 import {LoginPage} from './login.page';
 import {ComponentModule} from '../../components/component.module';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 const routes: Routes = [
     {
@@ -22,7 +23,10 @@ const routes: Routes = [
         ReactiveFormsModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [LoginPage]
+    declarations: [LoginPage],
+    providers: [
+        AngularFireAuth
+    ]
 })
 export class LoginPageModule {
 }
