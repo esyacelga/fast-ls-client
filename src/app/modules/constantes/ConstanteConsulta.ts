@@ -14,6 +14,7 @@ export const OBTENER_TIPO_USUARIO_PERSONA_LOGIN = 'tipoUsuarioPersona/BusquedaPe
 export const OBTENER_TODOS_USUARIOS = 'usuario/obtenerTodos';
 export const OBTENER_TODOS_PERSONA_TIPO_USUARIO = 'tipoUsuarioPersona/obtenerTodos';
 export const OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_PERSONA = 'tipoUsuarioPersona/ObtenerPorPersona';
+export const OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_CORREO = 'tipoUsuarioPersona/BuscarPersonaCorreo';
 export const OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_TIPO_USUARIO = 'tipoUsuarioPersona/ObtenerPorTipoUsuario';
 
 export const OBTENER_TODOS_SEGMENTOS = 'articuloSegmento/obtenerTodosArticuloSegmento';

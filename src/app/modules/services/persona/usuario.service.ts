@@ -34,13 +34,6 @@ export class UsuarioService {
             correo, clave
         };
         const data = await this.genericService.servicioRestGenericoGet(usuario, OBTENER_TIPO_USUARIO_PERSONA_LOGIN, requestOptions);
-        /*    // @ts-ignore
-            if (data && data.le) {
-                // @ts-ignore
-                data.usuario.playerId = this.svrPush.playerId;
-                // @ts-ignore
-
-            }*/
         return data;
     }
 

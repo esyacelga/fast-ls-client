@@ -50,6 +50,7 @@
     "cordova-sqlite-storage": "^5.0.0",
     "core-js": "^2.5.4",
     "firebase": "^7.17.2",
+    "google-auth-library": "^6.0.6",
     "onesignal-cordova-plugin": "^2.8.4",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
@@ -96,7 +97,10 @@
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
-      "cordova-plugin-googleplus": {}
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "ec.com.esyacelga",
+        "WEB_APPLICATION_CLIENT_ID": "816831801588-b3gtvvukhubg39b2mei5li8tf5jjjaij.apps.googleusercontent.com"
+      }
     },
     "platforms": [
       "android"

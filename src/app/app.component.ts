@@ -30,6 +30,8 @@ export class AppComponent {
     initializeApp() {
         this.platform.ready().then(async () => {
             this.modeloPersonaTipoUsuario = (await this.svrStorage.loadStorageObject('usuario')) as ModeloTipoUsuarioPersona;
+            console.log('Cargando Storage');
+            console.log(this.modeloPersonaTipoUsuario);
             if (this.modeloPersonaTipoUsuario && this.modeloPersonaTipoUsuario.usuario && this.modeloPersonaTipoUsuario.usuario.clave) {
                 this.navCtrl.navigateRoot('main');
             } else {

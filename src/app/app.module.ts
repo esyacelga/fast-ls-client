@@ -17,15 +17,16 @@ import {IonicStorageModule} from '@ionic/storage';
 import {MenuComponent} from './modules/components/menu/menu.component';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {firebaseConfig} from '../environments/environment';
 
 
 @NgModule({
     declarations: [AppComponent, MenuComponent],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, RestConectionModule,
-        IonicStorageModule.forRoot(), AngularFireAuthModule, AngularFireModule.initializeApp(environment)],
+        IonicStorageModule.forRoot(), AngularFireAuthModule, AngularFireModule.initializeApp(firebaseConfig), AngularFirestoreModule],
     providers: [
         GooglePlus,
         ComponentModule,

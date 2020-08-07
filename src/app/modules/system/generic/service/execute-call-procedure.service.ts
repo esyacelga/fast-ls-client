@@ -166,14 +166,6 @@ export class ExecuteCallProcedureService {
                     await this.loading.dismiss('messagesService.loadMessagesOverview');
                     this.presentToast(mensaje, COLOR_TOAST_ERROR);
                 }
-                /*
-                                if (options.mostrar === 1) {
-                                    await this.loading.dismiss('messagesService.loadMessagesOverview');
-                                }
-                                if (options.mostrar === 1) {
-                                    this.presentToast(options.errorMessage, COLOR_TOAST_ERROR);
-                                }
-                */
                 reject(error);
             });
         });
@@ -181,15 +173,14 @@ export class ExecuteCallProcedureService {
     }
 
     public errorToMessage(error, nombreRest) {
-        let tituloError = 'Ha ocurrido un error: ';
+        let tituloError = '';
         let detalleError = 'Log: ' + nombreRest;
         if (error.error) {
             if (error.error.message) {
                 tituloError = tituloError + error.error.message;
             }
         }
-        tituloError = '<p>' + tituloError + '</p>';
-        console.log(error);
+        tituloError =  tituloError ;
         if (error.error.errors === undefined) {
             return 'Error de conexion al servidor de aplicaciones';
         }

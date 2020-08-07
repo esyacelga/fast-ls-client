@@ -10,6 +10,7 @@ import {
 import {Sector} from '../../classes/persona/Sector';
 import {
     OBTENER_TODOS_PERSONA_TIPO_USUARIO,
+    OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_CORREO,
     OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_PERSONA,
     OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_TIPO_USUARIO
 } from '../../constantes/ConstanteConsulta';
@@ -24,6 +25,18 @@ export class TipoUsuarioPersonaService {
 
     constructor(private genericService: ExecuteCallProcedureService, private svrUtil: Util) {
 
+    }
+
+
+    /**
+     * Obtiene documento tipo_usuario_persona por id_persona
+     * @param correo
+     */
+    async obtenerPorCorreo(email: string) {
+        const requestOptions = new RequestOptions();
+        const objTipoUsuarioPersona: ModeloTipoUsuarioPersona =
+            (await this.genericService.servicioRestGenericoGet({correo: email}, OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_CORREO, requestOptions)) as ModeloTipoUsuarioPersona;
+        return objTipoUsuarioPersona;
     }
 
     /**
@@ -46,6 +59,12 @@ export class TipoUsuarioPersonaService {
         const lstTipoPersonaUsuario: ModeloTipoUsuarioPersona[] =
             (await this.genericService.servicioRestGenericoGet({tipoUsuario: idtipoUsuario}, OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_TIPO_USUARIO, requestOptions)) as ModeloTipoUsuarioPersona[];
         return lstTipoPersonaUsuario;
+    }
+
+
+    async registarGoogle(tipoUsuarioPersona: TipoUsuarioPersonaDto) {
+        const requestOptions = new RequestOptions();
+        return await this.genericService.servicioRestGenericoPost(tipoUsuarioPersona, CRUD_TIPO_USUARIO_PERSONA, requestOptions) as Sector;
     }
 
     async registar(tipoUsuarioPersona: TipoUsuarioPersonaDto) {

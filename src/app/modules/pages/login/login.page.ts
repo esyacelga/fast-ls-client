@@ -6,7 +6,7 @@ import {RegistroMensajes} from '../../classes/login/RegistroMensajes';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Usuario} from '../../interfaces/interfaces';
 import {UsuarioService} from '../../services/persona/usuario.service';
-import {NavController, Platform} from '@ionic/angular';
+import {IonSlides, NavController, Platform} from '@ionic/angular';
 import {StorageAppService} from '../../system/generic/service/storage-app.service';
 import {SectorService} from '../../services/persona/sector.service';
 import {TipoUsuarioPersonaService} from '../../services/persona/tipo-usuario-persona.service';
@@ -14,9 +14,10 @@ import {TipoUsuarioService} from '../../services/persona/tipo-usuario.service';
 import {Util} from '../../system/generic/classes/util';
 import {COLOR_TOAST_WARNING} from '../../system/generic/classes/constant';
 import {PushNotificationService} from '../../system/generic/service/push-notification.service';
-import {ModeloTipoUsuarioPersona, ModeloUsuario} from '../../classes/persona/TipoUsuarioPersona';
+import {ModeloTipoUsuarioPersona, TipoUsuarioPersonaDto} from '../../classes/persona/TipoUsuarioPersona';
 import {Router} from '@angular/router';
 import {LoginService} from '../../services/persona/login.service';
+import {GoogleObject} from '../../classes/login/GoogleObject';
 
 @Component({
     selector: 'app-login',
@@ -45,14 +46,81 @@ export class LoginPage implements OnInit {
     @ViewChild('slidePrincipal') slides: IonSlides;
 
 
-    loginGoogle() {
-        this.svrLogin.loginWithGoogle().then(data => {
-            this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
-            console.log(data);
-        }).catch(error => {
-            this.util.presentToast(error.code + ' ' + error.message, COLOR_TOAST_WARNING);
-        });
+    async loginGoogle() {
+        const objUsuario: GoogleObject = (await this.svrLogin.loginWithGoogle() as GoogleObject);
+        console.log('Inicia Login');
+        if (objUsuario === undefined || objUsuario.user === undefined || objUsuario.user.email === null || objUsuario.user.email === undefined) {
+            this.util.presentToast('Existió un error con la autentificación de google', COLOR_TOAST_WARNING);
+            return;
+        }
+        let objTipoUsuarioPersona: ModeloTipoUsuarioPersona = (await this.svtTipoUsuariPersona.obtenerPorCorreo(objUsuario.user.email) as ModeloTipoUsuarioPersona);
+
+        if (objTipoUsuarioPersona) {
+            this.redirigirFormulario(objTipoUsuarioPersona);
+        } else {
+            await this.registrarUsuarioPersona(objTipoUsuarioPersona, objUsuario);
+            objTipoUsuarioPersona = (await this.svtTipoUsuariPersona.obtenerPorCorreo(objUsuario.user.email) as ModeloTipoUsuarioPersona);
+            this.redirigirFormulario(objTipoUsuarioPersona);
+        }
     }
+
+    async registrarUsuarioPersona(objTipoUsuarioPersona: ModeloTipoUsuarioPersona, usuarioGoogle: GoogleObject) {
+        if (objTipoUsuarioPersona === undefined || objTipoUsuarioPersona === null) {
+            const tipoUsuarioPersona = new TipoUsuarioPersonaDto();
+            tipoUsuarioPersona.correo = usuarioGoogle.user.email;
+            tipoUsuarioPersona.google = true;
+            tipoUsuarioPersona.displayName = usuarioGoogle.user.displayName;
+            tipoUsuarioPersona.picture = usuarioGoogle.user.photoURL;
+            tipoUsuarioPersona.avatar = 'av-1.png';
+            tipoUsuarioPersona.tipoUsuario = this.objTipoUsuario._id;
+            tipoUsuarioPersona.clave = 'seya1922';
+            return await this.svtTipoUsuariPersona.registarGoogle(tipoUsuarioPersona);
+        }
+
+    }
+
+    async registerNewUser() {
+        if (this.registerUser.avatar === '' || this.registerUser.avatar === null) {
+            this.registerUser.avatar = 'av-1.png';
+        }
+        const usuarioApp = this.loginForm.value;
+        usuarioApp.tipoUsuario = this.objTipoUsuario._id;
+        usuarioApp.avatar = this.registerUser.avatar;
+        const data = await this.svtTipoUsuariPersona.registar(usuarioApp);
+        if (data) {
+            this.mostrarLogin();
+        }
+
+    }
+
+    async login() {
+        if (this.ingresoForm.status === 'INVALID') {
+            this.util.presentToast('Debe ingresar la información solicitada, (Usuario, Contraseña ).', COLOR_TOAST_WARNING);
+            return;
+        }
+        const data: ModeloTipoUsuarioPersona[] = (await this.svrUsuario.loginUsuario(
+            this.ingresoForm.value.correo, this.ingresoForm.value.clave)) as ModeloTipoUsuarioPersona[];
+        if (data && data.length > 0) {
+            this.redirigirFormulario(data[0]);
+        } else {
+            this.util.presentToast('Usuario y contraseña no son correctos.', COLOR_TOAST_WARNING);
+        }
+    }
+
+    async redirigirFormulario(objTipoUsuarioPersona: ModeloTipoUsuarioPersona) {
+        if (objTipoUsuarioPersona) {
+            await this.svrUsuario.actualizarPlayerId(objTipoUsuarioPersona.usuario);
+            this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
+            if (this.platform.is('cordova')) {
+                this.svtNotificacion.configuracionInicial();
+            }
+            this.svrStorage.setStorageObject(objTipoUsuarioPersona, 'usuario');
+        } else {
+            this.svrRoute.navigate(['/rol-usuario', objTipoUsuarioPersona.persona._id]);
+        }
+
+    }
+
 
     construirFormLogin() {
         this.ingresoForm = this.formFuilder.group({
@@ -152,46 +220,6 @@ export class LoginPage implements OnInit {
         };
     }
 
-
-    async login() {
-        if (this.ingresoForm.status === 'INVALID') {
-            this.util.presentToast('Debe ingresar la información solicitada, (Usuario, Contraseña ).', COLOR_TOAST_WARNING);
-            return;
-        }
-        const data: ModeloTipoUsuarioPersona[] = (await this.svrUsuario.loginUsuario(
-            this.ingresoForm.value.correo, this.ingresoForm.value.clave)) as ModeloTipoUsuarioPersona[];
-        if (data && data.length > 0) {
-            const objUsuario: ModeloUsuario = data[0].usuario;
-            await this.svrUsuario.actualizarPlayerId(objUsuario);
-            if (data.length === 1) {
-                this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
-                if (this.platform.is('cordova')) {
-                    this.svtNotificacion.configuracionInicial();
-                }
-                this.svrStorage.setStorageObject(data[0], 'usuario');
-            } else {
-                this.svrRoute.navigate(['/rol-usuario', data[0].persona._id]);
-            }
-        } else {
-            // mostrar alerta de usuario y contraseña no correctos
-            this.util.presentToast('Usuario y contraseña no son correctos.', COLOR_TOAST_WARNING);
-        }
-    }
-
-
-    async registerNewUser() {
-        if (this.registerUser.avatar === '' || this.registerUser.avatar === null) {
-            this.registerUser.avatar = 'av-1.png';
-        }
-        const usuarioApp = this.loginForm.value;
-        usuarioApp.tipoUsuario = this.objTipoUsuario._id;
-        usuarioApp.avatar = this.registerUser.avatar;
-        const data = await this.svtTipoUsuariPersona.registar(usuarioApp);
-        if (data) {
-            this.mostrarLogin();
-        }
-
-    }
 
     mostrarRegistro() {
         this.slides.lockSwipes(false);

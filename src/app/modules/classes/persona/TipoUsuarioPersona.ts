@@ -38,9 +38,12 @@ export class ModeloPersona {
     nombres: string = '';
     apellidos: string = '';
     fechaNacimiento: Date;
+    google: boolean = false;
+    displayName: string = '';
     identificacion: string = '';
     correo: string = '';
     sector: string = '';
+    picture: string = '';
     avatar: string = '';
 }
 
