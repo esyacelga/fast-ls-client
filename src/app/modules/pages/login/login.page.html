@@ -55,15 +55,16 @@
                                             (click)="mostrarRegistro()"
                                             expand="block">Registrar
                                     </ion-button>
-                                    <ion-grid>
-                                        <ion-row>
-                                            <ion-col size="3">
-                                                <ion-button (click)="loginGoogle()">
-                                                    <ion-icon name="logo-google"></ion-icon>
-                                                </ion-button>
-                                            </ion-col>
-                                        </ion-row>
-                                    </ion-grid>
+
+                                    <ion-button color="danger" (click)="loginGoogle()" expand="block">
+                                        <ion-icon name="logo-google">**</ion-icon>
+                                         Registro con Google
+                                    </ion-button>
+                                    <ion-button (click)="loginFaceBook()" expand="block">
+                                        <ion-icon name="logo-facebook"></ion-icon>
+                                        Registro con Facebook
+                                    </ion-button>
+
                                 </ion-col>
                             </ion-row>
                         </form>
@@ -130,21 +131,6 @@
                                         </ion-select-option>
                                     </ion-select>
                                 </ion-item>
-
-
-                                <!--<ion-item>
-                                  <ion-label position="floating">Sector</ion-label>
-                                  <ion-input maxlength="13" formControlName="identificacion"></ion-input>
-                                </ion-item>
-                                <div class="error-messages">
-                                  <ng-container *ngFor="let error of error_messages.identificacion">
-                                    <div class="error-message"
-                                         *ngIf="loginForm.get('identificacion').hasError(error.type) && (loginForm.get('identificacion').dirty || loginForm.get('identificacion').touched) ">
-                                      {{error.message}}
-                                    </div>
-                                  </ng-container>
-                                </div>-->
-
 
                                 <ion-item>
                                     <ion-input formControlName="correo" type="text" placeholder="Email"></ion-input>

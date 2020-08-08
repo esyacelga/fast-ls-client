@@ -20,7 +20,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {firebaseConfig} from '../environments/environment';
-
+import {Facebook} from '@ionic-native/facebook/ngx';
 
 @NgModule({
     declarations: [AppComponent, MenuComponent],
@@ -28,6 +28,7 @@ import {firebaseConfig} from '../environments/environment';
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, RestConectionModule,
         IonicStorageModule.forRoot(), AngularFireAuthModule, AngularFireModule.initializeApp(firebaseConfig), AngularFirestoreModule],
     providers: [
+        Facebook,
         GooglePlus,
         ComponentModule,
         Camera,

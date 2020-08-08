@@ -5,12 +5,13 @@ import {SectorService} from '../../services/persona/sector.service';
 import {TipoUsuarioService} from '../../services/persona/tipo-usuario.service';
 import {Sector} from '../../classes/persona/Sector';
 import {Util} from '../../system/generic/classes/util';
-import {COLOR_TOAST_DARK} from '../../system/generic/classes/constant';
+import {COLOR_TOAST_DARK, COLOR_TOAST_WARNING} from '../../system/generic/classes/constant';
 import {ModeloPersona, ModeloTipoUsuarioPersona, TipoUsuarioPersonaDto} from '../../classes/persona/TipoUsuarioPersona';
 import {StorageAppService} from '../../system/generic/service/storage-app.service';
 import {PersonaService} from '../../services/persona/persona.service';
 import {ModalController} from '@ionic/angular';
 import {PhotoProfilePage} from '../../pages/photo-profile/photo-profile.page';
+import {TipoUsuarioPersonaService} from '../../services/persona/tipo-usuario-persona.service';
 
 @Component({
     selector: 'app-profile',
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit {
     error_messages = this.registoMensajes.error_messages;
 
     constructor(private formFuilder: FormBuilder, private svrSector: SectorService,
+                private svtTipoUsuariPersona: TipoUsuarioPersonaService,
                 private svrStorage: StorageAppService, private modalCtrl: ModalController,
                 private svrTipoUsuario: TipoUsuarioService, private util: Util, private svrPersona: PersonaService) {
         this.construirFormRegistro();
@@ -113,11 +115,18 @@ export class ProfileComponent implements OnInit {
         };
     }
 
-    actualizarPersona() {
+    async actualizarPersona() {
         this.tipoUsuarioPersona = this.ingresoForm.value;
         this.tipoUsuarioPersona._id = this.modeloPersonaTipoUsuario.persona._id;
         if (this.ingresoForm.status === 'VALID') {
-            this.svrPersona.actualizarPersona(this.tipoUsuarioPersona);
+            if (this.tipoUsuarioPersona.sector || this.tipoUsuarioPersona.sector === '') {
+                this.util.presentToast('Debe ingresar el sector de domicilio', COLOR_TOAST_WARNING);
+                return;
+            }
+            await this.svrPersona.actualizarPersona(this.tipoUsuarioPersona);
+
+            const objTipoUsuarioPersona: ModeloTipoUsuarioPersona = (await this.svtTipoUsuariPersona.obtenerPorCorreo(this.modeloPersonaTipoUsuario.persona.correo) as ModeloTipoUsuarioPersona);
+            this.svrStorage.setStorageObject(objTipoUsuarioPersona, 'usuario');
         } else {
             this.util.presentToast('Por favor ingrese la información solicitada', COLOR_TOAST_DARK);
         }
@@ -128,23 +137,23 @@ export class ProfileComponent implements OnInit {
         this.lstSectores = await this.svrSector.obtenerSectores();
 
         const persona: ModeloPersona = await this.svrPersona.obtenerPersonaPorId(this.modeloPersonaTipoUsuario.persona._id);
-        this.setearPersona(this.modeloPersonaTipoUsuario.persona.nombres, this.modeloPersonaTipoUsuario.persona.apellidos,
+        this.setearPersona(this.util.isVoid(this.modeloPersonaTipoUsuario.persona.nombres, this.modeloPersonaTipoUsuario.persona.displayName), this.modeloPersonaTipoUsuario.persona.apellidos,
             this.modeloPersonaTipoUsuario.persona.identificacion, this.modeloPersonaTipoUsuario.persona.fechaNacimiento,
             persona.sector, this.modeloPersonaTipoUsuario.usuario.clave, persona.correo);
     }
 
     setearPersona(nombres: string, apellidos: string, identificacion: string, fechaNacimiento, sector: string, clave: string, correo: string) {
         this.ingresoForm.setValue({
-            nombres: nombres,
-            apellidos: apellidos,
+            nombres,
+            apellidos,
             segundoApellido: '',
             identificacion: this.util.isNull(identificacion, ''),
-            fechaNacimiento: fechaNacimiento,
+            fechaNacimiento: this.util.isNull(fechaNacimiento, ''),
             callePrincipal: '',
             calleSecundaria: '',
-            sector: sector,
-            clave: clave,
-            correo: correo,
+            sector: this.util.isNull(sector, ''),
+            clave,
+            correo,
             passwordValidator: clave
         });
     }

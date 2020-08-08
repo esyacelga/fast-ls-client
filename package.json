@@ -23,6 +23,7 @@
     "@babel/compat-data": "^7.8.0",
     "@ionic-native/camera": "^5.22.0",
     "@ionic-native/core": "^5.0.0",
+    "@ionic-native/facebook": "^5.27.0",
     "@ionic-native/file": "^5.22.0",
     "@ionic-native/file-transfer": "^5.22.0",
     "@ionic-native/geolocation": "^5.22.0",
@@ -67,6 +68,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "cordova-plugin-facebook4": "^6.4.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -100,6 +102,10 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "ec.com.esyacelga",
         "WEB_APPLICATION_CLIENT_ID": "816831801588-b3gtvvukhubg39b2mei5li8tf5jjjaij.apps.googleusercontent.com"
+      },
+      "cordova-plugin-facebook4": {
+        "APP_ID": "966329937142368",
+        "APP_NAME": "Fast-LS"
       }
     },
     "platforms": [

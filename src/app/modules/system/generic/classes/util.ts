@@ -28,6 +28,12 @@ export class Util {
         return value;
     }
 
+    public isVoid(value, ifnull) {
+        if (this.isNull(value, ifnull) === '') {
+            return ifnull;
+        }
+        return value;
+    }
 
     public buscarObjetoPorCampo(lista: [], campo: string, valor: string) {
         let obj;
