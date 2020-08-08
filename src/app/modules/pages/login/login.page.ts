@@ -46,17 +46,17 @@ export class LoginPage implements OnInit {
     @ViewChild('slidePrincipal') slides: IonSlides;
 
 
-    loginFaceBook() {
-        this.svrLogin.loginWithFaceBook().then(responce => {
-            console.log(responce);
-        }).catch(error => {
-            console.log(error);
-        });
+    async loginFaceBook() {
+        const objUsuario: GoogleObject = (await this.svrLogin.loginWithFaceBook() as GoogleObject);
+        await this.validarLogin(objUsuario);
     }
 
     async loginGoogle() {
         const objUsuario: GoogleObject = (await this.svrLogin.loginWithGoogle() as GoogleObject);
-        console.log('Inicia Login con Google');
+        await this.validarLogin(objUsuario);
+    }
+
+    async validarLogin(objUsuario: GoogleObject) {
         if (objUsuario === undefined || objUsuario.user === undefined || objUsuario.user.email === null || objUsuario.user.email === undefined) {
             this.util.presentToast('Existió un error con la autentificación de google', COLOR_TOAST_WARNING);
             return;

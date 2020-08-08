@@ -28,7 +28,8 @@ export class LoginService {
     }
 
     loginWithFaceBook() {
-        return this.svrFB.login(['emal', 'public_profile']).then((responce: FacebookLoginResponse) => {
+        console.log('Ingreso al metodo');
+        return this.svrFB.login(['email', 'public_profile']).then((responce: FacebookLoginResponse) => {
             console.log(responce);
             const credencialFB = auth.FacebookAuthProvider.credential(responce.authResponse.accessToken);
             console.log(credencialFB);
