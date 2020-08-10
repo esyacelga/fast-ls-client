@@ -13,13 +13,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PhotoProfilePageModule} from '../pages/photo-profile/photo-profile.module';
 import {PhotoProfilePage} from '../pages/photo-profile/photo-profile.page';
 import {SolicitudRutaComponent} from './solicitud-ruta/solicitud-ruta.component';
+import {ImagenUsuarioComponent} from './imagen-usuario/imagen-usuario.component';
 
 
 @NgModule({
-    declarations: [AvatarSelectorComponent, MapaComponent, ProfileComponent, SolicitudRutaComponent,
+    declarations: [AvatarSelectorComponent, MapaComponent, ProfileComponent, SolicitudRutaComponent, ImagenUsuarioComponent,
         CardImageComponent, ItemSeleccionadoComponent, ArticuloSlideComponent, PedidosComponent],
     exports: [
-        AvatarSelectorComponent, MapaComponent, ProfileComponent, SolicitudRutaComponent,
+        AvatarSelectorComponent, MapaComponent, ProfileComponent, SolicitudRutaComponent, ImagenUsuarioComponent,
         CardImageComponent, ItemSeleccionadoComponent, ArticuloSlideComponent, PedidosComponent
     ],
     imports: [

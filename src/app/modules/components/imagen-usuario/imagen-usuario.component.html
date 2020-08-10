@@ -1,0 +1,10 @@
+<ion-item color="dark">
+    <h6 slot="end">
+        <small>
+            {{displayName}}
+        </small>
+    </h6>
+    <ion-avatar slot="end">
+        <img [src]="photo |urlSanitizer">
+    </ion-avatar>
+</ion-item>

@@ -30,7 +30,8 @@ export class ProfileComponent implements OnInit {
 
     constructor(private formFuilder: FormBuilder, private svrSector: SectorService,
                 private svtTipoUsuariPersona: TipoUsuarioPersonaService,
-                private svrStorage: StorageAppService, private modalCtrl: ModalController,
+                private svrStorage: StorageAppService,
+                private modalCtrl: ModalController,
                 private svrTipoUsuario: TipoUsuarioService, private util: Util, private svrPersona: PersonaService) {
         this.construirFormRegistro();
         this.cargar();
@@ -119,12 +120,11 @@ export class ProfileComponent implements OnInit {
         this.tipoUsuarioPersona = this.ingresoForm.value;
         this.tipoUsuarioPersona._id = this.modeloPersonaTipoUsuario.persona._id;
         if (this.ingresoForm.status === 'VALID') {
-            if (this.tipoUsuarioPersona.sector || this.tipoUsuarioPersona.sector === '') {
+            if (this.tipoUsuarioPersona.sector === undefined || this.tipoUsuarioPersona.sector === '') {
                 this.util.presentToast('Debe ingresar el sector de domicilio', COLOR_TOAST_WARNING);
                 return;
             }
             await this.svrPersona.actualizarPersona(this.tipoUsuarioPersona);
-
             const objTipoUsuarioPersona: ModeloTipoUsuarioPersona = (await this.svtTipoUsuariPersona.obtenerPorCorreo(this.modeloPersonaTipoUsuario.persona.correo) as ModeloTipoUsuarioPersona);
             this.svrStorage.setStorageObject(objTipoUsuarioPersona, 'usuario');
         } else {
@@ -135,7 +135,6 @@ export class ProfileComponent implements OnInit {
 
     async ngOnInit() {
         this.lstSectores = await this.svrSector.obtenerSectores();
-
         const persona: ModeloPersona = await this.svrPersona.obtenerPersonaPorId(this.modeloPersonaTipoUsuario.persona._id);
         this.setearPersona(this.util.isVoid(this.modeloPersonaTipoUsuario.persona.nombres, this.modeloPersonaTipoUsuario.persona.displayName), this.modeloPersonaTipoUsuario.persona.apellidos,
             this.modeloPersonaTipoUsuario.persona.identificacion, this.modeloPersonaTipoUsuario.persona.fechaNacimiento,

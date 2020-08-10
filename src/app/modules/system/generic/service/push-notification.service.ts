@@ -64,7 +64,7 @@ export class PushNotificationService {
         this.svrSorage.setStorageObject('mensajes', lstObj);
     }
 
-    configuracionInicial() {
+    configuracionProcesoNotificacion() {
         this.oneSignal.startInit('e48a33c1-ca2e-48f9-88e5-3948eda929d1', '816831801588');
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
         this.oneSignal.handleNotificationReceived().subscribe((noti) => {

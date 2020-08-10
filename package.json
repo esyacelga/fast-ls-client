@@ -31,6 +31,7 @@
     "@ionic-native/image-picker": "^5.22.0",
     "@ionic-native/keyboard": "^5.22.0",
     "@ionic-native/onesignal": "^5.22.0",
+    "@ionic-native/sim": "^5.27.0",
     "@ionic-native/splash-screen": "^5.22.0",
     "@ionic-native/sqlite": "^5.22.0",
     "@ionic-native/status-bar": "^5.0.0",
@@ -53,6 +54,7 @@
     "firebase": "^7.17.2",
     "google-auth-library": "^6.0.6",
     "onesignal-cordova-plugin": "^2.8.4",
+    "run": "1.4.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -69,6 +71,7 @@
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "cordova-plugin-facebook4": "^6.4.0",
+    "cordova-plugin-sim": "^1.3.3",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -106,7 +109,8 @@
       "cordova-plugin-facebook4": {
         "APP_ID": "966329937142368",
         "APP_NAME": "Fast-LS"
-      }
+      },
+      "cordova-plugin-sim": {}
     },
     "platforms": [
       "android"

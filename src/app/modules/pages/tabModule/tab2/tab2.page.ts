@@ -5,7 +5,7 @@ import {StorageAppService} from '../../../system/generic/service/storage-app.ser
 import {PushNotificationService} from '../../../system/generic/service/push-notification.service';
 import {MensajeOneSignal} from '../../../system/generic/classes/MensajeOneSignal';
 import {ObjetoTipoUsuarioPersona} from '../../../classes/persona/ObjetoTipoUsuarioPersona';
-import {GRUPO_CLIENTE} from '../../../system/generic/classes/constant';
+import {GRUPO_ADMINISTRADOR, GRUPO_CLIENTE} from '../../../system/generic/classes/constant';
 
 @Component({
     selector: 'app-tab2',
@@ -43,7 +43,7 @@ export class Tab2Page implements OnInit {
             nombre = (data.persona.nombres + ' ' + data.persona.apellidos) || data.persona.correo;
         }
         mensaje.detalleNotificacion = 'El usuario: ' + nombre + ' ha generado una nueva solicitud';
-        mensaje.grupoUsuarios = GRUPO_CLIENTE;
+        mensaje.grupoUsuarios = GRUPO_ADMINISTRADOR;
         mensaje.key = 'ruta';
         mensaje.valor = 'managment';
         // this.nvr.navigateForward('managment');

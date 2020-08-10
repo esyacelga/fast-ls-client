@@ -26,7 +26,7 @@ export class RolUsuarioPage implements OnInit {
     setearRol(modeloPersonaUsuario: ModeloTipoUsuarioPersona) {
         this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
         if (this.platform.is('cordova')) {
-            this.svtNotificacion.configuracionInicial();
+            this.svtNotificacion.configuracionProcesoNotificacion();
         }
         this.svrStorage.setStorageObject(modeloPersonaUsuario, 'usuario');
     }

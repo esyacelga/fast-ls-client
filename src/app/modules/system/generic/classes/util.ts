@@ -55,6 +55,7 @@ export class Util {
 
     public async presentToast(mensaje, color) {
         const toast = await this.notify.create({
+            position: 'top',
             message: mensaje,
             duration: DURATION_TOAST,
             color

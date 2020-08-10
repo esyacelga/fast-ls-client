@@ -324,6 +324,7 @@ export class ExecuteCallProcedureService {
     private async presentToast(mensaje, color) {
         const toast = await this.notify.create({
             message: mensaje,
+            position: 'top',
             duration: DURATION_TOAST,
             color
         });

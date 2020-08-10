@@ -119,7 +119,7 @@ export class LoginPage implements OnInit {
             await this.svrUsuario.actualizarPlayerId(objTipoUsuarioPersona.usuario);
             this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
             if (this.platform.is('cordova')) {
-                this.svtNotificacion.configuracionInicial();
+                this.svtNotificacion.configuracionProcesoNotificacion();
             }
             this.svrStorage.setStorageObject(objTipoUsuarioPersona, 'usuario');
         } else {

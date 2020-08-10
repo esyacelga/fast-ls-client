@@ -16,6 +16,9 @@ export class AppComponent {
     usuario: any;
     modeloPersonaTipoUsuario: ModeloTipoUsuarioPersona;
 
+    /*public simInfo: any;
+    public cards: any;*/
+
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
@@ -27,22 +30,40 @@ export class AppComponent {
         this.initializeApp();
     }
 
+    /*
+        async obtencionInformacionTelefono() {
+            try {
+                const simPermission = await this.sim.requestReadPermission();
+                if (simPermission === 'OK') {
+                    const simData = await this.sim.getSimInfo();
+                    this.simInfo = simData;
+                    this.cards = simData.cards;
+                    console.log(simData);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }*/
+
     initializeApp() {
         this.platform.ready().then(async () => {
+            this.iniciaPulginCordova();
             this.modeloPersonaTipoUsuario = (await this.svrStorage.loadStorageObject('usuario')) as ModeloTipoUsuarioPersona;
             if (this.modeloPersonaTipoUsuario && this.modeloPersonaTipoUsuario.usuario && this.modeloPersonaTipoUsuario.usuario.clave) {
                 this.navCtrl.navigateRoot('main');
             } else {
                 this.navCtrl.navigateRoot('login');
             }
-            if (this.platform.is('cordova')) {
-                this.svtNotificacion.configuracionInicial();
-            }
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-            if (this.platform.is('cordova')) {
-                this.svtNotificacion.configuracionInicial();
-            }
         });
     }
+
+    iniciaPulginCordova() {
+        if (this.platform.is('cordova')) {
+            // this.obtencionInformacionTelefono();
+            this.svtNotificacion.configuracionProcesoNotificacion();
+        }
+    }
+
 }
