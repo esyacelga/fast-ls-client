@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
     modeloPersonaTipoUsuario: ModeloTipoUsuarioPersona;
     registoMensajes: RegistroMensajes = new RegistroMensajes();
     error_messages = this.registoMensajes.error_messages;
+    esUsuarioFirebase = false;
 
     constructor(private formFuilder: FormBuilder, private svrSector: SectorService,
                 private svtTipoUsuariPersona: TipoUsuarioPersonaService,
@@ -83,38 +84,24 @@ export class ProfileComponent implements OnInit {
             ])),
             segundoApellido: new FormControl('', null),
             sector: new FormControl('', null),
-            clave: new FormControl('', Validators.compose([
-                Validators.required,
-                Validators.minLength(6),
-                Validators.maxLength(30)
-            ])),
-            passwordValidator: new FormControl('', Validators.compose([
-                Validators.required,
-                Validators.minLength(6),
-                Validators.maxLength(30)
-            ])),
             correo: new FormControl('', Validators.compose([
                 Validators.required,
                 Validators.minLength(6),
-                Validators.maxLength(30)
+                Validators.maxLength(30),
+            ])),
+            numeroTelefonoCelular: new FormControl('', Validators.compose([
+                Validators.minLength(9),
+                Validators.maxLength(10),
+                Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$'),
+            ])),
+            numeroTelefonoConvencional: new FormControl('', Validators.compose([
+                Validators.minLength(9),
+                Validators.maxLength(10),
+                Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$'),
             ]))
-        }, {validators: this.isEquals('clave', 'passwordValidator')});
+        });
     }
 
-
-    isEquals(campo: string, campoToValidate: string) {
-        return (group: FormGroup) => {
-            const pass1 = group.controls[campo].value;
-            const pass2 = group.controls[campoToValidate].value;
-            if (pass1 === pass2) {
-                return null;
-            } else {
-                return {
-                    sonIguales: true
-                };
-            }
-        };
-    }
 
     async actualizarPersona() {
         this.tipoUsuarioPersona = this.ingresoForm.value;
@@ -136,12 +123,13 @@ export class ProfileComponent implements OnInit {
     async ngOnInit() {
         this.lstSectores = await this.svrSector.obtenerSectores();
         const persona: ModeloPersona = await this.svrPersona.obtenerPersonaPorId(this.modeloPersonaTipoUsuario.persona._id);
+        this.esUsuarioFirebase = persona.google;
         this.setearPersona(this.util.isVoid(this.modeloPersonaTipoUsuario.persona.nombres, this.modeloPersonaTipoUsuario.persona.displayName), this.modeloPersonaTipoUsuario.persona.apellidos,
             this.modeloPersonaTipoUsuario.persona.identificacion, this.modeloPersonaTipoUsuario.persona.fechaNacimiento,
-            persona.sector, this.modeloPersonaTipoUsuario.usuario.clave, persona.correo);
+            persona.sector, this.modeloPersonaTipoUsuario.usuario.clave, persona.correo, persona.numeroTelefonoConvencional, persona.numeroTelefonoCelular);
     }
 
-    setearPersona(nombres: string, apellidos: string, identificacion: string, fechaNacimiento, sector: string, clave: string, correo: string) {
+    private setearPersona(nombres: string, apellidos: string, identificacion: string, fechaNacimiento, sector: string, clave: string, correo: string, numeroTelefonoConvencional, numeroTelefonoCelular) {
         this.ingresoForm.setValue({
             nombres,
             apellidos,
@@ -151,9 +139,9 @@ export class ProfileComponent implements OnInit {
             callePrincipal: '',
             calleSecundaria: '',
             sector: this.util.isNull(sector, ''),
-            clave,
             correo,
-            passwordValidator: clave
+            numeroTelefonoConvencional,
+            numeroTelefonoCelular,
         });
     }
 

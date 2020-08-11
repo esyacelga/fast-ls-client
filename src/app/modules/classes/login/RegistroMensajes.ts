@@ -35,7 +35,17 @@ export class RegistroMensajes {
             {type: 'required', message: 'Los apellidos son requeridos'},
             {type: 'minlength', message: 'Debe ser mayor o igual a 6 caracteres'},
             {type: 'maxlength', message: 'Debe ser menor o igual a 30 caracteres'}
-
+        ],
+        'numeroTelefonoCelular': [
+            {type: 'minlength', message: 'Debe ser mayor o igual a 10 caracteres'},
+            {type: 'pattern', message: 'Debe ser solo numeros'},
+            {type: 'maxlength', message: 'Debe ser menor o igual a 10 caracteres'}
+        ],
+        'numeroTelefonoConvencional': [
+            {type: 'minlength', message: 'Debe ser mayor o igual a 10 caracteres'},
+            {type: 'pattern', message: 'Debe ser solo numeros'},
+            {type: 'maxlength', message: 'Debe ser menor o igual a 10 caracteres'}
         ]
+
     };
 }

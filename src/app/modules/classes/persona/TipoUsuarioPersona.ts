@@ -45,6 +45,8 @@ export class ModeloPersona {
     sector: string = '';
     picture: string = '';
     avatar: string = '';
+    numeroTelefonoCelular: string = '';
+    numeroTelefonoConvencional: string = '';
 }
 
 

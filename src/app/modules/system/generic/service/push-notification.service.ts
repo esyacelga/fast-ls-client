@@ -69,13 +69,11 @@ export class PushNotificationService {
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
         this.oneSignal.handleNotificationReceived().subscribe((noti) => {
             // do something when notification is received
-            console.log('Notificacion recivida: ', noti);
             this.notificacionRecibida(noti);
         });
 
         this.oneSignal.handleNotificationOpened().subscribe(async (noti) => {
             // do something when a notification is opened
-            console.log('Notificacion abierta: ', noti);
             await this.notificacionRecibida(noti.notification);
         });
 
