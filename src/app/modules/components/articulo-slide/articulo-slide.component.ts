@@ -9,6 +9,8 @@ import {COLOR_TOAST_MORADO, COLOR_TOAST_WARNING} from '../../system/generic/clas
 import {CommentComponentComponent} from '../comment-component/comment-component.component';
 import {ModalController} from '@ionic/angular';
 import {ModeloTipoUsuarioPersona} from '../../classes/persona/TipoUsuarioPersona';
+import {LikeDislikeService} from '../../services/common/likeDislike.service';
+import {LikeDislike} from '../../classes/common/LikeDislike';
 
 @Component({
     selector: 'app-articulo-slide',
@@ -25,19 +27,10 @@ export class ArticuloSlideComponent implements OnInit {
     private objArticulo: Articulo;
 
 
-    constructor(private svrSolicitud: SolicitudService, private utilSvr: Util, private svrStorage: StorageAppService, private modalCtrl: ModalController) {
+    constructor(private svrSolicitud: SolicitudService, private utilSvr: Util,
+                private svrStorage: StorageAppService, private modalCtrl: ModalController,
+                private  svrLike: LikeDislikeService) {
     }
-
-    /*
-        public activarComentarios(activa: boolean) {
-            if (activa === false) {
-                this.comentarioActivado = true;
-            } else {
-                this.comentarioActivado = false;
-            }
-        }
-    */
-
 
     public async abrirModal(item: Articulo) {
         const modal = await this.modalCtrl.create({
@@ -49,6 +42,12 @@ export class ArticuloSlideComponent implements OnInit {
         });
         await modal.present();
         const {data} = await modal.onDidDismiss();
+    }
+
+    public async actualizarLike(item: Articulo, like: boolean) {
+        let objLike: LikeDislike = new LikeDislike(this.modeloPersonaTipoUsuario.persona, item, like, true);
+        objLike = (await this.svrLike.registar(objLike) as LikeDislike);
+        console.log(objLike.articulo);
     }
 
 

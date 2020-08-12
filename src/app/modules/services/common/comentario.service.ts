@@ -22,17 +22,15 @@ export class ComentarioService {
 
     async registar(comentario: ItemComment) {
         const requestOptions = new RequestOptions();
-        requestOptions.successMessaje= 'Comentario Agregado';
+        requestOptions.successMessaje = 'Comentario Agregado';
         requestOptions.toastColor = COLOR_TOAST_SUCCESS;
-        const data = await this.genericService.servicioRestGenericoPost(comentario, CRUD_COMENTARIO, requestOptions) as Articulo;
+        const data = await this.genericService.servicioRestGenericoPost(comentario, CRUD_COMENTARIO, requestOptions) as ItemComment;
         return data;
     }
-
 
     async obtenerComentariosPorArticulo(objArticulo: Articulo) {
         const requestOptions = new RequestOptions();
         return (await this.genericService.servicioRestGenericoGet(objArticulo, OBTENER_COMENTARIOS, requestOptions) as ItemComment[]);
     }
-
 
 }

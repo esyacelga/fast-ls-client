@@ -13,6 +13,8 @@ export class Articulo {
     public esServicio: false;
     public permiteComentar: false;
     public imgs?: string[];
+    public conteoLike = 0;
+    public conteoDisLike = 0;
 }
 
 
