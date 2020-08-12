@@ -6,6 +6,9 @@ import {SolicitudService} from '../../services/mensajeria/solicitud.service';
 import {Util} from '../../system/generic/classes/util';
 import {StorageAppService} from '../../system/generic/service/storage-app.service';
 import {COLOR_TOAST_MORADO, COLOR_TOAST_WARNING} from '../../system/generic/classes/constant';
+import {CommentComponentComponent} from '../comment-component/comment-component.component';
+import {ModalController} from '@ionic/angular';
+import {ModeloTipoUsuarioPersona} from '../../classes/persona/TipoUsuarioPersona';
 
 @Component({
     selector: 'app-articulo-slide',
@@ -16,13 +19,41 @@ export class ArticuloSlideComponent implements OnInit {
     @Input() segmento: Segmento;
     @Input() lstArticulo: Array<Articulo>;
 
-    lstDetalle: SolcitudDetalleModel[] = [];
+    public lstDetalle: SolcitudDetalleModel[] = [];
+    public comentarioActivado = false;
+    public modeloPersonaTipoUsuario: ModeloTipoUsuarioPersona;
+    private objArticulo: Articulo;
 
-    constructor(private svrSolicitud: SolicitudService, private utilSvr: Util, private svrStorage: StorageAppService) {
+
+    constructor(private svrSolicitud: SolicitudService, private utilSvr: Util, private svrStorage: StorageAppService, private modalCtrl: ModalController) {
     }
 
-    async seleccionarArticulo(item: Articulo) {
+    /*
+        public activarComentarios(activa: boolean) {
+            if (activa === false) {
+                this.comentarioActivado = true;
+            } else {
+                this.comentarioActivado = false;
+            }
+        }
+    */
 
+
+    public async abrirModal(item: Articulo) {
+        const modal = await this.modalCtrl.create({
+            component: CommentComponentComponent,
+            componentProps: {
+                objArticulo: item,
+                objTipoUsuarioPersona: this.modeloPersonaTipoUsuario
+            }
+        });
+        await modal.present();
+        const {data} = await modal.onDidDismiss();
+    }
+
+
+    async seleccionarArticulo(item: Articulo) {
+        this.objArticulo = item;
         await this.svrSolicitud.getDetalleSolicitud();
         // @ts-ignore
         this.lstDetalle = await this.svrSolicitud.lstDetalle;
@@ -39,7 +70,8 @@ export class ArticuloSlideComponent implements OnInit {
         this.utilSvr.presentToast('Este artículo se ha agregado a su orden de compra', COLOR_TOAST_MORADO);
     }
 
-    ngOnInit() {
+    async ngOnInit() {
+        this.modeloPersonaTipoUsuario = (await this.svrStorage.loadStorageObject('usuario')) as ModeloTipoUsuarioPersona;
     }
 
 }

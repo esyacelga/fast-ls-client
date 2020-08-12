@@ -21,7 +21,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {firebaseConfig} from '../environments/environment';
 import {Facebook} from '@ionic-native/facebook/ngx';
-import { Sim } from '@ionic-native/sim/ngx';
+import {Sim} from '@ionic-native/sim/ngx';
 
 @NgModule({
     declarations: [AppComponent, MenuComponent],

@@ -1,4 +1,4 @@
-<ion-slides pager="true" *ngIf="lstArticulo">
+<ion-slides pager="true" style="padding-top: 30px" *ngIf="lstArticulo">
     <ion-slide *ngFor="let data of lstArticulo | segmentoArticulo:segmento">
         <ion-grid fixed>
             <ion-card size="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" color="dark">
@@ -19,36 +19,48 @@
                 </ion-label>
 
                 <ion-button color="tertiary" (click)="seleccionarArticulo(data)" expand="block">SOLICITAR</ion-button>
-                <ion-footer>
-                    <ion-row>
-                        <ion-col>
-                            <ion-button fill="clear" size="small">
-                                <ion-icon slot="start" name="thumbs-up"></ion-icon>
-                                <div>12 Me Gusta</div>
-                            </ion-button>
-                        </ion-col>
-                        <ion-col>
-                            <ion-button fill="clear" size="small">
-                                <ion-icon slot="start" name="thumbs-down"></ion-icon>
-                                <div>12 No me gusta</div>
-                            </ion-button>
-                        </ion-col>
-                        <ion-col *ngIf="data.permiteComentar">
-                            <ion-button fill="clear" size="small">
-                                <ion-icon slot="start" name="chatbox-ellipses-outline"></ion-icon>
-                                <div>4 Comments</div>
-                            </ion-button>
-                        </ion-col>
-                        <!--<ion-col center text-center>
-                            <ion-note>
-                                11h ago
-                            </ion-note>
-                        </ion-col>-->
-                    </ion-row>
-                </ion-footer>
-            </ion-card>
-            <br>
-        </ion-grid>
-    </ion-slide>
 
+            </ion-card>
+            <div class="comment-box">
+                <ion-card color="dark">
+                    <ion-footer>
+                        <ion-row>
+                            <ion-col>
+                                <ion-button fill="clear" size="small">
+                                    <ion-icon slot="start" name="thumbs-up"></ion-icon>
+                                    <div>12 Me Gusta</div>
+                                </ion-button>
+                            </ion-col>
+                            <ion-col>
+                                <ion-button fill="clear" size="small">
+                                    <ion-icon slot="start" name="thumbs-down"></ion-icon>
+                                    <div>12 No me gusta</div>
+                                </ion-button>
+                            </ion-col>
+                            <ion-col *ngIf="data.permiteComentar">
+                                <ion-button fill="clear" size="small" (click)="abrirModal(data)">
+                                    <ion-icon slot="start" name="chatbox-ellipses-outline"></ion-icon>
+                                    <div>4 Comments</div>
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-footer>
+                    <!--     <ion-card-content *ngIf="comentarioActivado">
+                             <p>
+                                 <strong>222</strong>
+                             </p>
+                             <p>
+                                 2121
+                             </p>
+                         </ion-card-content>-->
+                </ion-card>
+            </div>
+
+        </ion-grid>
+        <br>
+    </ion-slide>
+    <br>
 </ion-slides>
+
+
+

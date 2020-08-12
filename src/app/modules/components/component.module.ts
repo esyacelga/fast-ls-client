@@ -14,6 +14,8 @@ import {PhotoProfilePageModule} from '../pages/photo-profile/photo-profile.modul
 import {PhotoProfilePage} from '../pages/photo-profile/photo-profile.page';
 import {SolicitudRutaComponent} from './solicitud-ruta/solicitud-ruta.component';
 import {ImagenUsuarioComponent} from './imagen-usuario/imagen-usuario.component';
+import {CommentComponentComponent} from './comment-component/comment-component.component';
+import {ItemCommentModule} from './comment-component/item-comment.module';
 
 
 @NgModule({
@@ -24,13 +26,14 @@ import {ImagenUsuarioComponent} from './imagen-usuario/imagen-usuario.component'
         CardImageComponent, ItemSeleccionadoComponent, ArticuloSlideComponent, PedidosComponent
     ],
     imports: [
+        ItemCommentModule,
         CommonModule,
         PipesModule,
         FormsModule,
         IonicModule,
         PhotoProfilePageModule,
         ReactiveFormsModule,
-    ], entryComponents: [PhotoProfilePage]
+    ], entryComponents: [PhotoProfilePage, CommentComponentComponent]
 })
 export class ComponentModule {
 }

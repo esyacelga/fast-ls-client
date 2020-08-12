@@ -1,0 +1,39 @@
+<!--<ion-card >
+    <ion-card-content>
+        <ion-avatar slot="start">
+            <img [src]="comment.persona.picture|urlSanitizer">
+        </ion-avatar>
+        <strong>{{comment.persona.displayName}}</strong>
+        <p>
+            <small>
+                {{comment.comentario}}
+            </small>
+            <small>
+                {{comment.creacionFecha | date : 'H:mm a'}}
+            </small>
+        </p>
+    </ion-card-content>
+
+</ion-card>-->
+<ion-header padding color="dark">
+    <ion-textarea [(ngModel)]="message" type="text" placeholder="Comment .... "></ion-textarea>
+    <ion-button size="small" (click)="registrarComentario(message)" color="success">
+        <ion-icon slot="icon-only" name="send"></ion-icon>
+    </ion-button>
+</ion-header>
+
+<ion-list color="dark">
+    <ion-item *ngFor="let comment of lsComentarios" color="dark">
+        <ion-avatar slot="start">
+            <img [src]="comment.persona.picture|urlSanitizer">
+        </ion-avatar>
+        <ion-label>
+            <h2>{{comment.persona.displayName}}</h2>
+            <small>{{comment.creacionFecha | date : 'MM/dd/yy H:mm a'}}</small>
+            <p>{{comment.comentario}}</p>
+        </ion-label>
+    </ion-item>
+</ion-list>
+
+
+

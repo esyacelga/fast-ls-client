@@ -9,6 +9,8 @@ export class Persona {
     nombres: string;
     apellidos: string;
     correo: string;
+    displayName: string;
+    picture: string;
 }
 
 export class Usuario {

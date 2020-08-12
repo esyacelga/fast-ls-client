@@ -11,6 +11,8 @@ export const CRUD_SEGMENTO = 'articuloSegmento';
 export const CRUD_SOLICITUD = 'solicitud';
 export const CRUD_ACTUALIZAR_SOLICITUD = 'solicitud/actualizar';
 export const CRUD_ARTICULO = 'articulo';
+export const CRUD_COMENTARIO = 'commentario';
+export const OBTENER_COMENTARIOS = 'commentario/obtenerTodos';
 export const CRUD_ARTICULO_SIMPLE = 'articulo/registrarArticulo';
 
 export const CRUD_USUARIO = 'usuario';
