@@ -1,39 +1,43 @@
-<!--<ion-card >
-    <ion-card-content>
-        <ion-avatar slot="start">
-            <img [src]="comment.persona.picture|urlSanitizer">
-        </ion-avatar>
-        <strong>{{comment.persona.displayName}}</strong>
-        <p>
-            <small>
-                {{comment.comentario}}
-            </small>
-            <small>
-                {{comment.creacionFecha | date : 'H:mm a'}}
-            </small>
-        </p>
-    </ion-card-content>
-
-</ion-card>-->
-<ion-header padding color="dark">
-    <ion-textarea [(ngModel)]="message" type="text" placeholder="Comment .... "></ion-textarea>
-    <ion-button size="small" (click)="registrarComentario(message)" color="success">
-        <ion-icon slot="icon-only" name="send"></ion-icon>
-    </ion-button>
-</ion-header>
-
-<ion-list color="dark">
-    <ion-item *ngFor="let comment of lsComentarios" color="dark">
-        <ion-avatar slot="start">
-            <img [src]="comment.persona.picture|urlSanitizer">
-        </ion-avatar>
-        <ion-label>
-            <h2>{{comment.persona.displayName}}</h2>
-            <small>{{comment.creacionFecha | date : 'MM/dd/yy H:mm a'}}</small>
-            <p>{{comment.comentario}}</p>
-        </ion-label>
-    </ion-item>
-</ion-list>
-
-
-
+<!--<ion-header>
+    <ion-title>
+        Live Comments
+    </ion-title>
+</ion-header>-->
+<ion-content color="dark">
+    <div class="comment-box">
+        <ion-card *ngFor="let comment of lsComentarios" color="dark">
+            <ion-item color="dark">
+                <ion-avatar slot="start">
+                    <img [src]="comment.persona.picture|urlSanitizer">
+                </ion-avatar>
+                <small>{{comment.persona.displayName}}</small>
+                <!--<div class="ion-text-end">
+                    <small>{{comment.creacionFecha | date : 'MM/dd/yy H:mm a'}}</small>
+                </div>-->
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <div class="ion-text-end">
+                                <small>{{comment.creacionFecha | date : 'MM/dd/yy H:mm a'}}</small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-card-content color="dark">
+                <ion-label>
+                    {{comment.comentario}}
+                </ion-label>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <ion-footer padding>
+        <ion-textarea [(ngModel)]="message" type="text" placeholder="Comment .... "></ion-textarea>
+        <ion-button  size="small" float-left (click)="cerrarMoal()">
+            Regresar
+        </ion-button>
+        <ion-button color="success" size="small" float-right (click)="registrarComentario(message); message= null">
+            Enviar
+        </ion-button>
+    </ion-footer>
+</ion-content>

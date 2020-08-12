@@ -30,6 +30,11 @@ export class CommentComponentComponent implements OnInit {
         const objComentario: ItemComment = new ItemComment(this.objTipoUsuarioPersona.persona, this.objArticulo, comentario, true);
         await this.svrComment.registar(objComentario);
         await this.obtenerComentarios();
+        comentario = null;
+    }
+
+    public cerrarMoal() {
+        this.modal.dismiss();
     }
 
 
