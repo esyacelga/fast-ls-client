@@ -25,9 +25,6 @@
                 <ion-card color="dark">
                     <ion-footer>
                         <ion-row>
-                            <!--{{conteoLike | async }}
-                            222
-                            {{conteoDisLike | async }}-->
                             <ion-col>
                                 <ion-button fill="clear" size="small" (click)="actualizarLike(data,true)">
                                     <ion-icon slot="start" name="thumbs-up"></ion-icon>
@@ -44,22 +41,13 @@
                             <ion-col *ngIf="data.permiteComentar">
                                 <ion-button fill="clear" size="small" (click)="abrirModal(data)">
                                     <ion-icon slot="start" name="chatbox-ellipses-outline"></ion-icon>
-                                    <div>4 Comments</div>
+                                    <div>{{conteoComentarios ? (conteoComentarios | async |json) : data.conteoComentarios}} Commentar</div>
                                 </ion-button>
                             </ion-col>
                         </ion-row>
                     </ion-footer>
-                    <!--     <ion-card-content *ngIf="comentarioActivado">
-                             <p>
-                                 <strong>222</strong>
-                             </p>
-                             <p>
-                                 2121
-                             </p>
-                         </ion-card-content>-->
                 </ion-card>
             </div>
-
         </ion-grid>
         <br>
     </ion-slide>

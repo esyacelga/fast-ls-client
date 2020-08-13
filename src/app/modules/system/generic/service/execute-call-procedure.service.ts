@@ -180,7 +180,7 @@ export class ExecuteCallProcedureService {
                 tituloError = tituloError + error.error.message;
             }
         }
-        tituloError =  tituloError ;
+        tituloError = tituloError;
         if (error.error.errors === undefined) {
             return 'Error de conexion al servidor de aplicaciones';
         }
@@ -224,14 +224,17 @@ export class ExecuteCallProcedureService {
             if (messages.toastColor === undefined) {
                 messages.toastColor = COLOR_TOAST_PRIMARY;
             }
+            if (messages.presentarToast === undefined) {
+                messages.presentarToast = true;
+            }
 
             await this.loading.present('messagesService.loadMessagesOverview', messages.loadingMessage);
             if (!genericObject._id) {
-
                 this.restConnection.genericPostRestFull(genericObject, urlRestService).subscribe(async resp => {
                     await this.loading.dismiss('messagesService.loadMessagesOverview');
-                    this.presentToast(messages.successMessaje, messages.toastColor);
-
+                    if (messages.presentarToast === true) {
+                        this.presentToast(messages.successMessaje, messages.toastColor);
+                    }
                     let obj = null;
                     if (messages.responseType === 1) {
                         obj = resp;
@@ -239,7 +242,6 @@ export class ExecuteCallProcedureService {
                         obj = resp.objeto;
                     }
                     resolve(obj);
-
                 }, async httpError => {
                     const mensaje = this.lectorError(httpError.error.errors.errors);
                     await this.loading.dismiss('messagesService.loadMessagesOverview');
@@ -253,7 +255,9 @@ export class ExecuteCallProcedureService {
             } else {
                 this.restConnection.genericPutRestFull(genericObject, urlRestService).subscribe(async resp => {
                     await this.loading.dismiss('messagesService.loadMessagesOverview');
-                    this.presentToast(messages.successMessaje, messages.toastColor);
+                    if (messages.presentarToast === true) {
+                        this.presentToast(messages.successMessaje, messages.toastColor);
+                    }
                     let obj = null;
                     if (messages.responseType === 1) {
                         obj = resp;

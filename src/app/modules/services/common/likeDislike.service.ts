@@ -14,7 +14,6 @@ const URL = environment.url;
 })
 export class LikeDislikeService {
 
-
     constructor(private genericService: ExecuteCallProcedureService) {
 
     }
@@ -23,17 +22,10 @@ export class LikeDislikeService {
         const requestOptions = new RequestOptions();
         requestOptions.successMessaje = 'Like Agregado';
         requestOptions.toastColor = COLOR_TOAST_SUCCESS;
+        requestOptions.presentarToast = false;
         const data = await this.genericService.servicioRestGenericoPost(comentario, CRUD_LIKE_DISLIKE, requestOptions) as LikeDislike;
         return data;
     }
-
-
-    /*
-        async obtenerComentariosPorArticulo(objArticulo: Articulo) {
-            const requestOptions = new RequestOptions();
-            return (await this.genericService.servicioRestGenericoGet(objArticulo, OBTENER_COMENTARIOS, requestOptions) as ItemComment[]);
-        }
-    */
 
 
 }

@@ -29,6 +29,7 @@ export class ArticuloSlideComponent implements OnInit {
     private objArticulo: Articulo;
     private conteoLike: Observable<number>;
     private conteoDisLike: Observable<number>;
+    private conteoComentarios: Observable<number>;
 
 
     constructor(private svrSolicitud: SolicitudService,
@@ -58,6 +59,9 @@ export class ArticuloSlideComponent implements OnInit {
         });
         this.conteoDisLike = new Observable<number>((observer: Subscriber<number>) => {
             observer.next(objLike.articulo.conteoDisLike);
+        });
+        this.conteoComentarios = new Observable<number>((observer: Subscriber<number>) => {
+            observer.next(objLike.articulo.conteoComentarios);
         });
         return objLike.articulo;
     }

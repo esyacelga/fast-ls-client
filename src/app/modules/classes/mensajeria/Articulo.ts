@@ -15,6 +15,7 @@ export class Articulo {
     public imgs?: string[];
     public conteoLike = 0;
     public conteoDisLike = 0;
+    public conteoComentarios = 0;
 }
 
 
