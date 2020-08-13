@@ -11,6 +11,7 @@ import {ModalController} from '@ionic/angular';
 import {ModeloTipoUsuarioPersona} from '../../classes/persona/TipoUsuarioPersona';
 import {LikeDislikeService} from '../../services/common/likeDislike.service';
 import {LikeDislike} from '../../classes/common/LikeDislike';
+import {Observable, Subscriber} from 'rxjs';
 
 @Component({
     selector: 'app-articulo-slide',
@@ -21,14 +22,19 @@ export class ArticuloSlideComponent implements OnInit {
     @Input() segmento: Segmento;
     @Input() lstArticulo: Array<Articulo>;
 
+
     public lstDetalle: SolcitudDetalleModel[] = [];
     public comentarioActivado = false;
     public modeloPersonaTipoUsuario: ModeloTipoUsuarioPersona;
     private objArticulo: Articulo;
+    private conteoLike: Observable<number>;
+    private conteoDisLike: Observable<number>;
 
 
-    constructor(private svrSolicitud: SolicitudService, private utilSvr: Util,
-                private svrStorage: StorageAppService, private modalCtrl: ModalController,
+    constructor(private svrSolicitud: SolicitudService,
+                private utilSvr: Util,
+                private svrStorage: StorageAppService,
+                private modalCtrl: ModalController,
                 private  svrLike: LikeDislikeService) {
     }
 
@@ -47,7 +53,13 @@ export class ArticuloSlideComponent implements OnInit {
     public async actualizarLike(item: Articulo, like: boolean) {
         let objLike: LikeDislike = new LikeDislike(this.modeloPersonaTipoUsuario.persona, item, like, true);
         objLike = (await this.svrLike.registar(objLike) as LikeDislike);
-        console.log(objLike.articulo);
+        this.conteoLike = new Observable<number>((observer: Subscriber<number>) => {
+            observer.next(objLike.articulo.conteoLike);
+        });
+        this.conteoDisLike = new Observable<number>((observer: Subscriber<number>) => {
+            observer.next(objLike.articulo.conteoDisLike);
+        });
+        return objLike.articulo;
     }
 
 

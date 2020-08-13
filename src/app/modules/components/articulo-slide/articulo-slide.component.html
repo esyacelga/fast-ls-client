@@ -25,16 +25,20 @@
                 <ion-card color="dark">
                     <ion-footer>
                         <ion-row>
+                            <!--{{conteoLike | async }}
+                            222
+                            {{conteoDisLike | async }}-->
                             <ion-col>
                                 <ion-button fill="clear" size="small" (click)="actualizarLike(data,true)">
                                     <ion-icon slot="start" name="thumbs-up"></ion-icon>
-                                    <div>{{data.conteoLike}} Me Gusta</div>
+                                    <div>{{conteoLike ? (conteoLike | async |json) : data.conteoLike }} Me Gusta</div>
                                 </ion-button>
                             </ion-col>
                             <ion-col>
                                 <ion-button fill="clear" size="small" (click)="actualizarLike(data,false)">
                                     <ion-icon slot="start" name="thumbs-down"></ion-icon>
-                                    <div>{{data.conteoDisLike}} No me gusta</div>
+                                    <div>{{conteoDisLike ? (conteoDisLike | async |json) : data.conteoDisLike}} No me gusta
+                                    </div>
                                 </ion-button>
                             </ion-col>
                             <ion-col *ngIf="data.permiteComentar">
