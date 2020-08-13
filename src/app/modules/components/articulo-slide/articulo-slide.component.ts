@@ -22,7 +22,6 @@ export class ArticuloSlideComponent implements OnInit {
     @Input() segmento: Segmento;
     @Input() lstArticulo: Array<Articulo>;
 
-
     public lstDetalle: SolcitudDetalleModel[] = [];
     public comentarioActivado = false;
     public modeloPersonaTipoUsuario: ModeloTipoUsuarioPersona;
@@ -49,6 +48,18 @@ export class ArticuloSlideComponent implements OnInit {
         });
         await modal.present();
         const {data} = await modal.onDidDismiss();
+        if (data && data.objArt && data.objArt.conteoComentarios) {
+            this.conteoComentarios = new Observable<number>((observer: Subscriber<number>) => {
+                observer.next(data.objArt.conteoComentarios);
+            });
+        }
+        /*     if (data && data.objArt && data.objArt.conteoComentarios) {
+                 for (let i = 0; this.lstArticulo.length > 0; i++) {
+                     if (this.lstArticulo[i]._id === data.objArt._id) {
+                         this.lstArticulo[i] = data.objArt;
+                     }
+                 }
+             }*/
     }
 
     public async actualizarLike(item: Articulo, like: boolean) {
@@ -59,9 +70,6 @@ export class ArticuloSlideComponent implements OnInit {
         });
         this.conteoDisLike = new Observable<number>((observer: Subscriber<number>) => {
             observer.next(objLike.articulo.conteoDisLike);
-        });
-        this.conteoComentarios = new Observable<number>((observer: Subscriber<number>) => {
-            observer.next(objLike.articulo.conteoComentarios);
         });
         return objLike.articulo;
     }

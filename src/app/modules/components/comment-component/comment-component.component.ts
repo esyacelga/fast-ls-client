@@ -14,7 +14,7 @@ export class CommentComponentComponent implements OnInit {
 
     @Input() public objArticulo: Articulo;
     @Input() public objTipoUsuarioPersona: ModeloTipoUsuarioPersona;
-
+    private objComent: ItemComment;
     public message: string;
     public lsComentarios: ItemComment[] = [];
 
@@ -28,13 +28,13 @@ export class CommentComponentComponent implements OnInit {
 
     public async registrarComentario(comentario) {
         const objComentario: ItemComment = new ItemComment(this.objTipoUsuarioPersona.persona, this.objArticulo, comentario, true);
-        await this.svrComment.registar(objComentario);
+        this.objComent = await this.svrComment.registar(objComentario);
         await this.obtenerComentarios();
         comentario = null;
     }
 
     public cerrarMoal() {
-        this.modal.dismiss();
+        this.modal.dismiss({objArt: this.objComent.articulo});
     }
 
 
