@@ -6,12 +6,13 @@ import {SolicitudService} from '../../services/mensajeria/solicitud.service';
 import {Util} from '../../system/generic/classes/util';
 import {StorageAppService} from '../../system/generic/service/storage-app.service';
 import {COLOR_TOAST_MORADO, COLOR_TOAST_WARNING} from '../../system/generic/classes/constant';
-import {CommentComponentComponent} from '../comment-component/comment-component.component';
+import {CommentComponent} from '../comment-component/comment.component';
 import {ModalController} from '@ionic/angular';
 import {ModeloTipoUsuarioPersona} from '../../classes/persona/TipoUsuarioPersona';
 import {LikeDislikeService} from '../../services/common/likeDislike.service';
 import {LikeDislike} from '../../classes/common/LikeDislike';
 import {Observable, Subscriber} from 'rxjs';
+import {ArticuloService} from '../../services/mensajeria/articulo.service';
 
 @Component({
     selector: 'app-articulo-slide',
@@ -33,6 +34,7 @@ export class ArticuloSlideComponent implements OnInit {
 
     constructor(private svrSolicitud: SolicitudService,
                 private utilSvr: Util,
+                private svrArticulo: ArticuloService,
                 private svrStorage: StorageAppService,
                 private modalCtrl: ModalController,
                 private  svrLike: LikeDislikeService) {
@@ -40,7 +42,7 @@ export class ArticuloSlideComponent implements OnInit {
 
     public async abrirModal(item: Articulo) {
         const modal = await this.modalCtrl.create({
-            component: CommentComponentComponent,
+            component: CommentComponent,
             componentProps: {
                 objArticulo: item,
                 objTipoUsuarioPersona: this.modeloPersonaTipoUsuario
@@ -48,11 +50,12 @@ export class ArticuloSlideComponent implements OnInit {
         });
         await modal.present();
         const {data} = await modal.onDidDismiss();
-        if (data && data.objArt && data.objArt.conteoComentarios) {
-            this.conteoComentarios = new Observable<number>((observer: Subscriber<number>) => {
-                observer.next(data.objArt.conteoComentarios);
-            });
-        }
+        this.lstArticulo = (await this.svrArticulo.obtenerArticulos() as Array<Articulo>);
+        /*   if (data && data.objArt && data.objArt.conteoComentarios) {
+               this.conteoComentarios = new Observable<number>((observer: Subscriber<number>) => {
+                   observer.next(data.objArt.conteoComentarios);
+               });
+           }*/
         /*     if (data && data.objArt && data.objArt.conteoComentarios) {
                  for (let i = 0; this.lstArticulo.length > 0; i++) {
                      if (this.lstArticulo[i]._id === data.objArt._id) {
@@ -65,12 +68,13 @@ export class ArticuloSlideComponent implements OnInit {
     public async actualizarLike(item: Articulo, like: boolean) {
         let objLike: LikeDislike = new LikeDislike(this.modeloPersonaTipoUsuario.persona, item, like, true);
         objLike = (await this.svrLike.registar(objLike) as LikeDislike);
-        this.conteoLike = new Observable<number>((observer: Subscriber<number>) => {
-            observer.next(objLike.articulo.conteoLike);
-        });
-        this.conteoDisLike = new Observable<number>((observer: Subscriber<number>) => {
-            observer.next(objLike.articulo.conteoDisLike);
-        });
+        this.lstArticulo = (await this.svrArticulo.obtenerArticulos() as Array<Articulo>);
+        /*   this.conteoLike = new Observable<number>((observer: Subscriber<number>) => {
+               observer.next(objLike.articulo.conteoLike);
+           });
+           this.conteoDisLike = new Observable<number>((observer: Subscriber<number>) => {
+               observer.next(objLike.articulo.conteoDisLike);
+           });*/
         return objLike.articulo;
     }
 

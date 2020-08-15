@@ -10,7 +10,6 @@ import {ModeloPersona, ModeloTipoUsuarioPersona, TipoUsuarioPersonaDto} from '..
 import {StorageAppService} from '../../system/generic/service/storage-app.service';
 import {PersonaService} from '../../services/persona/persona.service';
 import {ModalController} from '@ionic/angular';
-import {PhotoProfilePage} from '../../pages/photo-profile/photo-profile.page';
 import {TipoUsuarioPersonaService} from '../../services/persona/tipo-usuario-persona.service';
 
 @Component({
@@ -31,6 +30,7 @@ export class ProfileComponent implements OnInit {
 
     constructor(private formFuilder: FormBuilder, private svrSector: SectorService,
                 private svtTipoUsuariPersona: TipoUsuarioPersonaService,
+                private modal: ModalController,
                 private svrStorage: StorageAppService,
                 private modalCtrl: ModalController,
                 private svrTipoUsuario: TipoUsuarioService, private util: Util, private svrPersona: PersonaService) {
@@ -45,13 +45,8 @@ export class ProfileComponent implements OnInit {
         this.ruta = this.modeloPersonaTipoUsuario._id;
     }
 
-    async abrirModal() {
-        const modal = await this.modalCtrl.create({
-            component: PhotoProfilePage,
-            componentProps: {title: 's', tipoError: 's', mensaje: 'mensajeError'}
-        });
-        await modal.present();
-        const {data} = await modal.onDidDismiss();
+    public cerrrarPanel() {
+        this.modal.dismiss();
     }
 
     construirFormRegistro() {

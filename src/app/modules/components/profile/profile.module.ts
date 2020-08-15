@@ -1,19 +1,21 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
-import {CommentComponent} from './comment.component';
 import {PipesModule} from '../../pipes/pipes.module';
+import {ProfileComponent} from './profile.component';
 
 
 @NgModule({
     imports: [
         CommonModule,
-        PipesModule,
         FormsModule,
         IonicModule,
+        FormsModule,
+        ReactiveFormsModule,
+        PipesModule,
     ],
-    declarations: [CommentComponent]
+    declarations: [ProfileComponent]
 })
-export class ItemCommentModule {
+export class ProfileModule {
 }

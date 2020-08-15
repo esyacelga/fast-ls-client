@@ -14,15 +14,16 @@ import {PhotoProfilePageModule} from '../pages/photo-profile/photo-profile.modul
 import {PhotoProfilePage} from '../pages/photo-profile/photo-profile.page';
 import {SolicitudRutaComponent} from './solicitud-ruta/solicitud-ruta.component';
 import {ImagenUsuarioComponent} from './imagen-usuario/imagen-usuario.component';
-import {CommentComponentComponent} from './comment-component/comment-component.component';
+import {CommentComponent} from './comment-component/comment.component';
 import {ItemCommentModule} from './comment-component/item-comment.module';
+import {ProfileModule} from './profile/profile.module';
 
 
 @NgModule({
-    declarations: [AvatarSelectorComponent, MapaComponent, ProfileComponent, SolicitudRutaComponent, ImagenUsuarioComponent,
+    declarations: [AvatarSelectorComponent, MapaComponent, SolicitudRutaComponent, ImagenUsuarioComponent,
         CardImageComponent, ItemSeleccionadoComponent, ArticuloSlideComponent, PedidosComponent],
     exports: [
-        AvatarSelectorComponent, MapaComponent, ProfileComponent, SolicitudRutaComponent, ImagenUsuarioComponent,
+        AvatarSelectorComponent, MapaComponent, SolicitudRutaComponent, ImagenUsuarioComponent,
         CardImageComponent, ItemSeleccionadoComponent, ArticuloSlideComponent, PedidosComponent
     ],
     imports: [
@@ -30,10 +31,12 @@ import {ItemCommentModule} from './comment-component/item-comment.module';
         CommonModule,
         PipesModule,
         FormsModule,
-        IonicModule,
-        PhotoProfilePageModule,
         ReactiveFormsModule,
-    ], entryComponents: [PhotoProfilePage, CommentComponentComponent]
+        IonicModule,
+        ProfileModule,
+        PhotoProfilePageModule,
+
+    ], entryComponents: [PhotoProfilePage, CommentComponent, ProfileComponent]
 })
 export class ComponentModule {
 }

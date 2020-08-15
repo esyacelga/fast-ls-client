@@ -7,10 +7,10 @@ import {ItemComment} from '../../classes/common/ItemComment';
 
 @Component({
     selector: 'app-comment-component',
-    templateUrl: './comment-component.component.html',
-    styleUrls: ['./comment-component.component.scss'],
+    templateUrl: './comment.component.html',
+    styleUrls: ['./comment.component.scss'],
 })
-export class CommentComponentComponent implements OnInit {
+export class CommentComponent implements OnInit {
 
     @Input() public objArticulo: Articulo;
     @Input() public objTipoUsuarioPersona: ModeloTipoUsuarioPersona;
@@ -34,7 +34,11 @@ export class CommentComponentComponent implements OnInit {
     }
 
     public cerrarMoal() {
-        this.modal.dismiss({objArt: this.objComent.articulo});
+        if (this.objComent && this.objComent.articulo) {
+            this.modal.dismiss({objArt: this.objComent.articulo});
+        } else {
+            this.modal.dismiss({objArt: {}});
+        }
     }
 
 

@@ -8,38 +8,39 @@
                 <ion-slide class="image-slide"
                            [style]=" (data.portada | imagen: data.articuloSegmento._id ) | domSanitizer ">
                 </ion-slide>
-                <ion-label *ngIf="!data.esServicio">
-                    <h3>{{data.descripcion | uppercase}}</h3>
-                    <p>Costo unidad: {{data.unidadCosto}}</p>
-                </ion-label>
-                <ion-label *ngIf="data.esServicio">
-                    <h3>{{data.descripcion | uppercase}}</h3>
-                    <p>Costo Servicio: {{data.unidadCosto}}</p>
-                </ion-label>
+                <div *ngIf="!data.esBanner">
+                    <ion-label *ngIf="!data.esServicio">
+                        <h3>{{data.descripcion | uppercase}}</h3>
+                        <p>Costo unidad: {{data.unidadCosto}}</p>
+                    </ion-label>
+                    <ion-label *ngIf="data.esServicio">
+                        <h3>{{data.descripcion | uppercase}}</h3>
+                        <p>Costo Servicio: {{data.unidadCosto}}</p>
+                    </ion-label>
+                </div>
                 <ion-button color="tertiary" (click)="seleccionarArticulo(data)" expand="block">SOLICITAR</ion-button>
             </ion-card>
-            <div class="comment-box">
+            <div class="comment-box" >
                 <ion-card color="dark">
                     <ion-footer>
                         <ion-row>
                             <ion-col>
                                 <ion-button fill="clear" size="small" (click)="actualizarLike(data,true)">
                                     <ion-icon slot="start" name="thumbs-up"></ion-icon>
-                                    <div>{{conteoLike ? (conteoLike | async |json) : data.conteoLike }} Me Gusta</div>
+                                    <div>{{ data.conteoLike }} Me Gusta</div>
                                 </ion-button>
                             </ion-col>
                             <ion-col>
                                 <ion-button fill="clear" size="small" (click)="actualizarLike(data,false)">
                                     <ion-icon slot="start" name="thumbs-down"></ion-icon>
-                                    <div>{{conteoDisLike ? (conteoDisLike | async |json) : data.conteoDisLike}} No me
-                                        gusta
+                                    <div>{{ data.conteoDisLike}} No me gusta
                                     </div>
                                 </ion-button>
                             </ion-col>
                             <ion-col *ngIf="data.permiteComentar">
                                 <ion-button fill="clear" size="small" (click)="abrirModal(data)">
                                     <ion-icon slot="start" name="chatbox-ellipses-outline"></ion-icon>
-                                    <div>{{conteoComentarios ? (conteoComentarios | async |json) : data.conteoComentarios}}
+                                    <div>{{ data.conteoComentarios}}
                                         Commentar
                                     </div>
                                 </ion-button>

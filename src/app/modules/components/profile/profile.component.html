@@ -1,124 +1,122 @@
+<ion-content color="dark">
+    <form [formGroup]="ingresoForm" (ngSubmit)="actualizarPersona()">
+        <ion-row>
+            <ion-col>
+                <ion-list class="background-input">
+                    <ion-item color="dark">
+                        <ion-label position="floating">Nombres</ion-label>
+                        <ion-input formControlName="nombres" required></ion-input>
+                    </ion-item>
+                    <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.nombres">
+                            <div class="error-message"
+                                 *ngIf="ingresoForm.get('nombres').hasError(error.type) && (ingresoForm.get('nombres').dirty || ingresoForm.get('nombres').touched) ">
+                                {{error.message}}
+                            </div>
+                        </ng-container>
+                    </div>
+                    <ion-item color="dark">
+                        <ion-label position="floating">Apellidos</ion-label>
+                        <ion-input formControlName="apellidos"></ion-input>
+                    </ion-item>
+                    <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.apellidos">
+                            <div class="error-message"
+                                 *ngIf="ingresoForm.get('apellidos').hasError(error.type) && (ingresoForm.get('apellidos').dirty || ingresoForm.get('apellidos').touched) ">
+                                {{error.message}}
+                            </div>
+                        </ng-container>
+                    </div>
 
-<form [formGroup]="ingresoForm" (ngSubmit)="actualizarPersona()">
-    <ion-row>
-        <ion-col>
-            <ion-list class="background-input">
-                <ion-item color="dark">
-                    <ion-label position="floating">Nombres</ion-label>
-                    <ion-input formControlName="nombres" required></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                    <ng-container *ngFor="let error of error_messages.nombres">
-                        <div class="error-message"
-                             *ngIf="ingresoForm.get('nombres').hasError(error.type) && (ingresoForm.get('nombres').dirty || ingresoForm.get('nombres').touched) ">
-                            {{error.message}}
-                        </div>
-                    </ng-container>
-                </div>
-                <ion-item color="dark">
-                    <ion-label position="floating">Apellidos</ion-label>
-                    <ion-input formControlName="apellidos"></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                    <ng-container *ngFor="let error of error_messages.apellidos">
-                        <div class="error-message"
-                             *ngIf="ingresoForm.get('apellidos').hasError(error.type) && (ingresoForm.get('apellidos').dirty || ingresoForm.get('apellidos').touched) ">
-                            {{error.message}}
-                        </div>
-                    </ng-container>
-                </div>
+                    <ion-item color="dark">
+                        <ion-label position="floating">Cédula</ion-label>
+                        <ion-input maxlength="13" formControlName="identificacion"></ion-input>
+                    </ion-item>
 
-                <ion-item color="dark">
-                    <ion-label position="floating">Cédula</ion-label>
-                    <ion-input maxlength="13" formControlName="identificacion"></ion-input>
-                </ion-item>
+                    <ion-item color="dark">
+                        <ion-label position="floating">Fecha de nacimiento</ion-label>
+                        <ion-datetime formControlName="fechaNacimiento"
+                                      display-format="MMM DD, YYYY"></ion-datetime>
+                    </ion-item>
 
-                <ion-item color="dark">
-                    <ion-label position="floating">Fecha de nacimiento</ion-label>
-                    <ion-datetime formControlName="fechaNacimiento"
-                                  display-format="MMM DD, YYYY"></ion-datetime>
-                </ion-item>
+                    <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.fechaNacimiento">
+                            <div class="error-message"
+                                 *ngIf="ingresoForm.get('fechaNacimiento').hasError(error.type) && (ingresoForm.get('fechaNacimiento').dirty || ingresoForm.get('fechaNacimiento').touched) ">
+                                {{error.message}}
+                            </div>
+                        </ng-container>
+                    </div>
 
-                <div class="error-messages">
-                    <ng-container *ngFor="let error of error_messages.fechaNacimiento">
-                        <div class="error-message"
-                             *ngIf="ingresoForm.get('fechaNacimiento').hasError(error.type) && (ingresoForm.get('fechaNacimiento').dirty || ingresoForm.get('fechaNacimiento').touched) ">
-                            {{error.message}}
-                        </div>
-                    </ng-container>
-                </div>
-
-                <ion-item color="dark">
-                    <ion-label position="floating">Sector de domicilio</ion-label>
-                    <ion-select ngModel="modeloPersonaTipoUsuario.persona.sector" formControlName="sector"
-                                value="sector._id" okText="Okay" cancelText="Dismiss">
-                        <ion-select-option *ngFor="let sector  of lstSectores"
-                                           value="{{sector._id}}">{{sector.descripcion}}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
-
-
-                <ion-item color="dark">
-                    <ion-label position="floating">Telefono celular</ion-label>
-                    <ion-input formControlName="numeroTelefonoCelular"></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                    <ng-container *ngFor="let error of error_messages.numeroTelefonoCelular">
-                        <div class="error-message"
-                             *ngIf="ingresoForm.get('numeroTelefonoCelular').hasError(error.type) && (ingresoForm.get('numeroTelefonoCelular').dirty || ingresoForm.get('numeroTelefonoCelular').touched) ">
-                            {{error.message}}
-                        </div>
-                    </ng-container>
-                </div>
-
-                <ion-item color="dark">
-                    <ion-label position="floating">Telefono convencional</ion-label>
-                    <ion-input formControlName="numeroTelefonoConvencional"></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                    <ng-container *ngFor="let error of error_messages.numeroTelefonoConvencional">
-                        <div class="error-message"
-                             *ngIf="ingresoForm.get('numeroTelefonoConvencional').hasError(error.type) && (ingresoForm.get('numeroTelefonoConvencional').dirty || ingresoForm.get('numeroTelefonoConvencional').touched) ">
-                            {{error.message}}
-                        </div>
-                    </ng-container>
-                </div>
+                    <ion-item color="dark">
+                        <ion-label position="floating">Sector de domicilio</ion-label>
+                        <ion-select ngModel="modeloPersonaTipoUsuario.persona.sector" formControlName="sector"
+                                    value="sector._id" okText="Okay" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let sector  of lstSectores"
+                                               value="{{sector._id}}">{{sector.descripcion}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
 
 
-                <ion-item color="dark">
-                    <ion-label position="floating">Correo</ion-label>
-                    <ion-input formControlName="correo" type="text" [disabled]="esUsuarioFirebase" placeholder="Email"></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                    <ng-container *ngFor="let error of error_messages.correo">
-                        <div class="error-message"
-                             *ngIf="ingresoForm.get('correo').hasError(error.type) && (ingresoForm.get('correo').dirty || ingresoForm.get('correo').touched) ">
-                            {{error.message}}
-                        </div>
-                    </ng-container>
-                </div>
+                    <ion-item color="dark">
+                        <ion-label position="floating">Telefono celular</ion-label>
+                        <ion-input formControlName="numeroTelefonoCelular"></ion-input>
+                    </ion-item>
+                    <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.numeroTelefonoCelular">
+                            <div class="error-message"
+                                 *ngIf="ingresoForm.get('numeroTelefonoCelular').hasError(error.type) && (ingresoForm.get('numeroTelefonoCelular').dirty || ingresoForm.get('numeroTelefonoCelular').touched) ">
+                                {{error.message}}
+                            </div>
+                        </ng-container>
+                    </div>
 
-            </ion-list>
-        </ion-col>
-    </ion-row>
+                    <ion-item color="dark">
+                        <ion-label position="floating">Telefono convencional</ion-label>
+                        <ion-input formControlName="numeroTelefonoConvencional"></ion-input>
+                    </ion-item>
+                    <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.numeroTelefonoConvencional">
+                            <div class="error-message"
+                                 *ngIf="ingresoForm.get('numeroTelefonoConvencional').hasError(error.type) && (ingresoForm.get('numeroTelefonoConvencional').dirty || ingresoForm.get('numeroTelefonoConvencional').touched) ">
+                                {{error.message}}
+                            </div>
+                        </ng-container>
+                    </div>
 
-    <ion-row>
-        <ion-col>
-            <ion-button *ngIf="!esUsuarioFirebase"
-                    type="submit"
-                    (click)="abrirModal()"
-                    color="primary"
-                    expand="block">Actualizar Foto Perfil
 
-            </ion-button>
-            <ion-button
-                    type="submit"
-                    color="tertiary"
-                    expand="block">Actualizar Perfil
-            </ion-button>
+                    <ion-item color="dark">
+                        <ion-label position="floating">Correo</ion-label>
+                        <ion-input formControlName="correo" type="text" [disabled]="esUsuarioFirebase"
+                                   placeholder="Email"></ion-input>
+                    </ion-item>
+                    <div class="error-messages">
+                        <ng-container *ngFor="let error of error_messages.correo">
+                            <div class="error-message"
+                                 *ngIf="ingresoForm.get('correo').hasError(error.type) && (ingresoForm.get('correo').dirty || ingresoForm.get('correo').touched) ">
+                                {{error.message}}
+                            </div>
+                        </ng-container>
+                    </div>
 
-        </ion-col>
-    </ion-row>
-</form>
+                </ion-list>
+            </ion-col>
+        </ion-row>
 
+        <ion-row>
+            <ion-col>
+                <ion-button
+                        type="submit"
+                        color="tertiary"
+                        expand="block">Actualizar Perfil
+                </ion-button>
+                <ion-button (click)="cerrrarPanel()"
+                            color="tertiary"
+                            expand="block">Cancelar
+                </ion-button>
+
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>
