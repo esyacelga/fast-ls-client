@@ -112,7 +112,6 @@ export class ProfileComponent implements OnInit {
         } else {
             this.util.presentToast('Por favor ingrese la información solicitada', COLOR_TOAST_DARK);
         }
-
     }
 
     async ngOnInit() {

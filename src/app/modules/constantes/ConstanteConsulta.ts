@@ -1,4 +1,5 @@
 export const OBTENER_PEDIDOS = 'solicitud/obtenerPedidos';
+export const OBTENER_PEDIDOS_USUARIO = 'solicitud/obtenerPedidoPorUsuario';
 export const OBTENER_TODOS_PERSONA = 'persona/obtenerTodos';
 export const OBTENER_TODOS_PERSONA_POR_ID = 'persona/obtenerPersonaPorID';
 export const OBTENER_TODOS_NOTIFICACIONES = 'notificacion/obtenerTodos';

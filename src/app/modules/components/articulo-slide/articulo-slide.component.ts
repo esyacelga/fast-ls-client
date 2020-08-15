@@ -11,8 +11,10 @@ import {ModalController} from '@ionic/angular';
 import {ModeloTipoUsuarioPersona} from '../../classes/persona/TipoUsuarioPersona';
 import {LikeDislikeService} from '../../services/common/likeDislike.service';
 import {LikeDislike} from '../../classes/common/LikeDislike';
-import {Observable, Subscriber} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ArticuloService} from '../../services/mensajeria/articulo.service';
+import {ProfileComponent} from '../profile/profile.component';
+import {Pedido} from '../../classes/mensajeria/Pedido';
 
 @Component({
     selector: 'app-articulo-slide',
@@ -78,9 +80,24 @@ export class ArticuloSlideComponent implements OnInit {
         return objLike.articulo;
     }
 
+    async activarPanel() {
+        const modal = await this.modalCtrl.create({
+            component: ProfileComponent,
+            componentProps: {title: 's', tipoError: 's', mensaje: 'mensajeError'}
+        });
+        await modal.present();
+        const {data} = await modal.onDidDismiss();
+    }
+
 
     async seleccionarArticulo(item: Articulo) {
         this.objArticulo = item;
+        const lstPedido: Pedido[] = (await this.svrSolicitud.obtenerPedidos() as Pedido[]);
+        if (lstPedido.length === 0) {
+            this.utilSvr.presentToast('Para generar su primer pedido y mejorar nuestro servicio debe actualizar la informacion solicitada', COLOR_TOAST_WARNING);
+            this.activarPanel();
+            return;
+        }
         await this.svrSolicitud.getDetalleSolicitud();
         // @ts-ignore
         this.lstDetalle = await this.svrSolicitud.lstDetalle;
