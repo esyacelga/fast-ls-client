@@ -13,7 +13,7 @@
                 <ion-row>
                     <ion-col>
                         <form [formGroup]="ingresoForm" (ngSubmit)="login()">
-                            <ion-row>
+                            <!--<ion-row>
                                 <ion-col>
                                     <ion-list class="background-input">
 
@@ -41,26 +41,14 @@
                                     </ion-list>
                                 </ion-col>
                             </ion-row>
-
+-->
                             <ion-row>
                                 <ion-col>
-                                    <ion-button
-                                            type="submit"
-                                            color="tertiary"
-                                            expand="block">Ingresar
-                                    </ion-button>
-                                    <ion-button
-                                            type="button"
-                                            color="tertiary"
-                                            (click)="mostrarRegistro()"
-                                            expand="block">Registrar
-                                    </ion-button>
-
                                     <ion-button (click)="loginFaceBook()" expand="block">
-                                        Facebook
+                                        Ingresar con Facebook
                                     </ion-button>
                                     <ion-button color="danger" (click)="loginGoogle()" expand="block">
-                                        Google
+                                        Ingresar con Google
                                     </ion-button>
 
                                 </ion-col>

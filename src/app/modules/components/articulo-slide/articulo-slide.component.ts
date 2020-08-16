@@ -5,7 +5,7 @@ import {SolcitudDetalleModel} from '../../classes/mensajeria/SolcitudCabeceraMod
 import {SolicitudService} from '../../services/mensajeria/solicitud.service';
 import {Util} from '../../system/generic/classes/util';
 import {StorageAppService} from '../../system/generic/service/storage-app.service';
-import {COLOR_TOAST_MORADO, COLOR_TOAST_WARNING} from '../../system/generic/classes/constant';
+import {COLOR_TOAST_MORADO, COLOR_TOAST_PRIMARY, COLOR_TOAST_WARNING} from '../../system/generic/classes/constant';
 import {CommentComponent} from '../comment-component/comment.component';
 import {ModalController} from '@ionic/angular';
 import {ModeloTipoUsuarioPersona} from '../../classes/persona/TipoUsuarioPersona';
@@ -94,7 +94,7 @@ export class ArticuloSlideComponent implements OnInit {
         this.objArticulo = item;
         const lstPedido: Pedido[] = (await this.svrSolicitud.obtenerPedidos() as Pedido[]);
         if (lstPedido.length === 0) {
-            this.utilSvr.presentToast('Para generar su primer pedido y mejorar nuestro servicio debe actualizar la informacion solicitada', COLOR_TOAST_WARNING);
+            this.utilSvr.presentToast('Para generar su primer pedido y mejorar nuestro servicio debe actualizar la informacion solicitada', COLOR_TOAST_PRIMARY);
             this.activarPanel();
             return;
         }

@@ -125,17 +125,17 @@ export class ProfileComponent implements OnInit {
 
     private setearPersona(nombres: string, apellidos: string, identificacion: string, fechaNacimiento, sector: string, clave: string, correo: string, numeroTelefonoConvencional, numeroTelefonoCelular) {
         this.ingresoForm.setValue({
-            nombres,
-            apellidos,
+            nombres: this.util.isNull(nombres, ''),
+            apellidos: this.util.isNull(apellidos, ''),
             segundoApellido: '',
             identificacion: this.util.isNull(identificacion, ''),
             fechaNacimiento: this.util.isNull(fechaNacimiento, ''),
             callePrincipal: '',
             calleSecundaria: '',
             sector: this.util.isNull(sector, ''),
-            correo,
-            numeroTelefonoConvencional,
-            numeroTelefonoCelular,
+            correo: this.util.isNull(correo, ''),
+            numeroTelefonoConvencional: this.util.isNull(numeroTelefonoConvencional, ''),
+            numeroTelefonoCelular: this.util.isNull(numeroTelefonoCelular, ''),
         });
     }
 
