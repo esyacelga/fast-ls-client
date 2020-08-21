@@ -1,0 +1,53 @@
+keytool -importkeystore -srckeystore D:\proyectos-ionic\black-cat-ionic\key\app-key.jks -destkeystore 
+D:\proyectos-ionic\black-cat-ionic\key\app-key.jks -deststoretype pkcs12
+.\keytool -exportcert -list -v -alias app-key -keystore D:\proyectos-ionic\black-cat-ionic\key\app-key.jks
+
+
+inocic cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=ec.com.esyacelga --variable WEB_APPLICATION_CLIENT_ID=816831801588-b3gtvvukhubg39b2mei5li8tf5jjjaij.apps.googleusercontent.com
+ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="966329937142368" --variable APP_NAME="Fast-LS"
+
+AngularFireModule.initializeApp(environment)
+
+.\jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore D:\proyectos-ionic\black-cat-ionic\key\app-key.jks D:\proyectos-ionic\black-cat-ionic\platforms\android\app\build\outputs\apk\debug\app-debug.apk   app-key 
+
+
+.\jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore D:\proyectos-ionic\black-cat-ionic\key\app-key.jks D:\proyectos-ionic\black-cat-ionic\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk  app-key
+.\jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore D:\proyectos-ionic\black-cat-ionic\key\app-key.jks D:\proyectos-ionic\black-cat-ionic\platforms\android\app\release\app-release.apk  app-key
+
+
+
+ .\keytool -list -printcert -jarfile "D:\proyectos-ionic\black-cat-ionic\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk"
+
+ .\keytool -list -printcert -jarfile "D:\proyectos-ionic\black-cat-ionic\platforms\android\app\release\app-release.apk"
+
+
+ayunas
+ pepino, manzana verde, manojo de apio, limon , vaso de agua
+ 
+ 
+ org.kie.server.api.exception.KieServicesHttpException: Unexpected HTTP response code when requesting URI 'http://192.168.2.6:8080/kie-server/services/rest/server/containers/PM01_Control_Previo/processes/PM01_Control_Previo.PM_Control_Previo/instances'! Error code: 500, message: "Unable to create response: Unable to commit transaction"
+
+ ng analytics project off
+ ionic cordova build --release  android 
+ npm uninstall cordova-res
+npm install -g cordova-res		
+ ionic cordova build run  android --l
+ https://www.youtube.com/watch?v=ik-6BA8D2RA&t=1547s
+ SEya1922*Emi
+ 0E:72:9C:60:92:E4:B4:FF:00:44:A4:30:C0:1A:0C:95:0C:54:AC:5B
+ 0E:72:9C:60:92:E4:B4:FF:00:44:A4:30:C0:1A:0C:95:0C:54:AC:5B
+ 0E:72:9C:60:92:E4:B4:FF:00:44:A4:30:C0:1A:0C:95:0C:54:AC:5B
+ 0E:72:9C:60:92:E4:B4:FF:00:44:A4:30:C0:1A:0C:95:0C:54:AC:5B
+ 0E:72:9C:60:92:E4:B4:FF:00:44:A4:30:C0:1A:0C:95:0C:54:AC:5B
+ 091586
+ 
+ 
+npm uninstall -g cordova 
+npm i -g cordova@9.0.0
+npm i -g cordova
+
+npm uinstall -g @ionic/cli
+
+
+base nunmero de dias
+base tasa de interes 
