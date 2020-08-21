@@ -23,7 +23,7 @@ export class LoginService {
     loginWithGoogle() {
         return this.google.login({}).then(result => {
             const userDataGoogle = result;
-            return this.svrAuth.signInWithCredential(auth.GoogleAuthProvider.credential(null, userDataGoogle.accessToken));
+            return this.svrAuth.auth.signInWithCredential(auth.GoogleAuthProvider.credential(null, userDataGoogle.accessToken));
         });
     }
 
@@ -33,7 +33,7 @@ export class LoginService {
             console.log(responce);
             const credencialFB = auth.FacebookAuthProvider.credential(responce.authResponse.accessToken);
             console.log(credencialFB);
-            return this.svrAuth.signInWithCredential(credencialFB);
+            return this.svrAuth.auth.signInWithCredential(credencialFB);
         });
     }
 

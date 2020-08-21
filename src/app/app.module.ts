@@ -8,7 +8,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RestConectionModule} from './modules/system/generic/rest-conection/rest-conection.module';
 import {PipesModule} from './modules/pipes/pipes.module';
-import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
 import {FileTransfer} from '@ionic-native/file-transfer/ngx';
 import {OneSignal} from '@ionic-native/onesignal/ngx';
@@ -34,7 +33,6 @@ import {Facebook} from '@ionic-native/facebook/ngx';
         Camera,
         FileTransfer,
         StatusBar,
-        Geolocation,
         PipesModule,
         SplashScreen,
         OneSignal,

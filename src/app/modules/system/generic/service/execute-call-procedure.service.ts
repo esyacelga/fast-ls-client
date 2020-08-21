@@ -20,7 +20,7 @@ import {ImageObject} from '../classes/ImageObject';
     providedIn: 'root'
 })
 export class ExecuteCallProcedureService {
-    mostrarMensaje: boolean = false;
+    mostrarMensaje = false;
 
     constructor(private utilService: Util,
                 private notify: ToastController,
