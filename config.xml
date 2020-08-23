@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="ec.com.esyacelga" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Fast-ls</name>
+    <name>Volarys</name>
     <description>Aplicacion cliente de Fast-Ls, para entregas a domicilio</description>
     <author email="esyacelga@hotmail.com" href="http://ionicframework.com/">FAST-LS</author>
     <content src="index.html" />
@@ -108,11 +108,12 @@
     <plugin name="cordova-sqlite-storage" spec="^5.0.0" />
     <plugin name="cordova-plugin-facebook4" spec="^6.4.0">
         <variable name="APP_ID" value="966329937142368" />
-        <variable name="APP_NAME" value="Fast-LS" />
+        <variable name="APP_NAME" value="Volarys" />
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^8.5.0">
         <variable name="REVERSED_CLIENT_ID" value="ec.com.esyacelga" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="816831801588-b3gtvvukhubg39b2mei5li8tf5jjjaij.apps.googleusercontent.com" />
     </plugin>
+    <plugin name="cordova-plugin-network-information" spec="^2.0.2" />
     <engine name="android" spec="7.1.4" />
 </widget>

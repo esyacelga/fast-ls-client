@@ -5,7 +5,7 @@ import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase';
 import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook/ngx';
-import {COLOR_TOAST_DARK, COLOR_TOAST_ERROR, COLOR_TOAST_MEDIUM} from '../../system/generic/classes/constant';
+import {COLOR_TOAST_DARK, COLOR_TOAST_ERROR} from '../../system/generic/classes/constant';
 
 @Injectable({
     providedIn: 'root'

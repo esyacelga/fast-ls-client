@@ -6,6 +6,7 @@ import {OBTENER_EVIO_NOTIFICACION} from '../../../constantes/ConstanteConsulta';
 import {MensajeOneSignal} from '../classes/MensajeOneSignal';
 import {RequestOptions} from '../classes/RequestOptions';
 import {NavController} from '@ionic/angular';
+import {APPID, GOOGLENUMBER} from '../classes/constant';
 
 @Injectable({
     providedIn: 'root'
@@ -65,7 +66,7 @@ export class PushNotificationService {
     }
 
     configuracionProcesoNotificacion() {
-        this.oneSignal.startInit('e48a33c1-ca2e-48f9-88e5-3948eda929d1', '816831801588');
+        this.oneSignal.startInit(APPID, GOOGLENUMBER);
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
         this.oneSignal.handleNotificationReceived().subscribe((noti) => {
             // do something when notification is received

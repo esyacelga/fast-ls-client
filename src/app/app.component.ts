@@ -6,6 +6,9 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {StorageAppService} from './modules/system/generic/service/storage-app.service';
 import {PushNotificationService} from './modules/system/generic/service/push-notification.service';
 import {ModeloTipoUsuarioPersona} from './modules/classes/persona/TipoUsuarioPersona';
+import {Network} from '@ionic-native/network/ngx';
+import {Util} from './modules/system/generic/classes/util';
+import {COLOR_TOAST_DARK, COLOR_TOAST_SUCCESS, OFFLINE, ONLINE} from './modules/system/generic/classes/constant';
 
 @Component({
     selector: 'app-root',
@@ -22,6 +25,8 @@ export class AppComponent {
         private statusBar: StatusBar,
         private navCtrl: NavController,
         private svrStorage: StorageAppService,
+        private svrNet: Network,
+        private util: Util,
         private svtNotificacion: PushNotificationService
     ) {
         this.initializeApp();
@@ -46,6 +51,12 @@ export class AppComponent {
         if (this.platform.is('cordova')) {
             // this.obtencionInformacionTelefono();
             this.svtNotificacion.configuracionProcesoNotificacion();
+            this.svrNet.onDisconnect().subscribe(() => {
+                this.util.presentToast(OFFLINE, COLOR_TOAST_DARK);
+                this.svrNet.onConnect().subscribe(() => {
+                    this.util.presentToast(ONLINE, COLOR_TOAST_SUCCESS);
+                });
+            });
         }
     }
 

@@ -1,22 +1,35 @@
 import {Injectable} from '@angular/core';
-import {COLOR_TOAST_ERROR, COLOR_TOAST_PRIMARY, DURATION_TOAST, ERROR_MESSAGE, LOAD_MESSAGE, PROC_GET_XML_GENERICO, PROC_XML_REST_GENERICO, SUCCESS_MESSAGE} from '../classes/constant';
-import {ToastController} from '@ionic/angular';
+import {COLOR_TOAST_ERROR, COLOR_TOAST_MEDIUM, COLOR_TOAST_PRIMARY, DURATION_TOAST, ERROR_MESSAGE, LOAD_MESSAGE, OFFLINE, PROC_GET_XML_GENERICO, PROC_XML_REST_GENERICO, SUCCESS_MESSAGE} from '../classes/constant';
+import {Platform, ToastController} from '@ionic/angular';
 import {RequestOptions} from '../classes/RequestOptions';
 import {LoadingService} from './loading.service';
 import {Util} from '../classes/util';
 import {RestConectionService} from './rest-conection.service';
 import {ImageObject} from '../classes/ImageObject';
+import {Network} from '@ionic-native/network/ngx';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ExecuteCallProcedureService {
     mostrarMensaje = false;
+    private internetConection = true;
 
     constructor(private utilService: Util,
                 private notify: ToastController,
                 protected loading: LoadingService,
+                private svrNet: Network,
+                private platform: Platform,
                 private restConnection: RestConectionService) {
+
+        if (this.platform.is('cordova')) {
+            this.svrNet.onDisconnect().subscribe(() => {
+                this.internetConection = false;
+            });
+            this.svrNet.onConnect().subscribe(() => {
+                this.internetConection = true;
+            });
+        }
     }
 
 
@@ -120,6 +133,10 @@ export class ExecuteCallProcedureService {
         if (!options) {
             options = new RequestOptions();
         }
+        if (this.internetConection === false) {
+            this.presentToast(OFFLINE, COLOR_TOAST_MEDIUM, 'bottom');
+            return;
+        }
         const promesa = new Promise(async (resolve, reject) => {
 
             if (options.successMessaje === undefined) {
@@ -143,6 +160,7 @@ export class ExecuteCallProcedureService {
             if (options.mostrarLoading === true) {
                 await this.loading.present('messagesService.loadMessagesOverview', options.loadingMessage);
             }
+
             this.restConnection.genericGetRestFull(genericObject, urlRestService).subscribe(async resp => {
                 if (options.mostrarLoading === true) {
                     await this.loading.dismiss('messagesService.loadMessagesOverview');
@@ -205,6 +223,10 @@ export class ExecuteCallProcedureService {
     }
 
     public servicioRestGenericoPost = function(genericObject: any, urlRestService: string, messages?: RequestOptions) {
+        if (this.internetConection === false) {
+            this.presentToast(OFFLINE, COLOR_TOAST_MEDIUM, 'bottom');
+            return;
+        }
         return new Promise(async (resolve, reject) => {
             if (!messages) {
                 messages = new RequestOptions();
@@ -328,10 +350,13 @@ export class ExecuteCallProcedureService {
     };
 
 
-    private async presentToast(mensaje, color) {
+    private async presentToast(mensaje, color, position ?) {
+        if (!position) {
+            position = 'top';
+        }
         const toast = await this.notify.create({
             message: mensaje,
-            position: 'top',
+            position,
             duration: DURATION_TOAST,
             color
         });
