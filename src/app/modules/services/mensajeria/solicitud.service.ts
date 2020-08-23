@@ -29,6 +29,7 @@ export class SolicitudService {
 
     async registarSolicitud(solicitud: SolcitudCabeceraModel) {
         const requestOptions = new RequestOptions();
+        requestOptions.presentarToast = true;
         requestOptions.successMessaje = 'Su solicitud a sido generado, un operador estará próximo a comunicarse con usted';
         requestOptions.toastColor = COLOR_TOAST_SUCCESS;
         const data = await this.genericService.servicioRestGenericoPost(solicitud, CRUD_SOLICITUD, requestOptions) as Articulo;

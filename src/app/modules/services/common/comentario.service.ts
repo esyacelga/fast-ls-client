@@ -21,6 +21,7 @@ export class ComentarioService {
         const requestOptions = new RequestOptions();
         requestOptions.successMessaje = 'Comentario Agregado';
         requestOptions.toastColor = COLOR_TOAST_SUCCESS;
+        requestOptions.presentarToast = true;
         const data = await this.genericService.servicioRestGenericoPost(comentario, CRUD_COMENTARIO, requestOptions) as ItemComment;
         return data;
     }

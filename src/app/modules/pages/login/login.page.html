@@ -11,7 +11,7 @@
                 <ion-row>
                     <ion-col>
                         <form [formGroup]="ingresoForm" (ngSubmit)="login()">
-                            <!--<ion-row>
+                            <ion-row *ngIf="!esProduccion">
                                 <ion-col>
                                     <ion-list class="background-input">
 
@@ -39,9 +39,13 @@
                                     </ion-list>
                                 </ion-col>
                             </ion-row>
--->
                             <ion-row>
                                 <ion-col>
+                                    <ion-button *ngIf="!esProduccion"
+                                            type="submit"
+                                            color="tertiary"
+                                            expand="block">Ingresar
+                                    </ion-button>
                                     <ion-button (click)="loginFaceBook()" expand="block">
                                         Ingresar con Facebook
                                     </ion-button>

@@ -27,6 +27,8 @@ export class PersonaService {
             return;
         }
         const requestOptions = new RequestOptions();
+        requestOptions.presentarToast = true;
+        requestOptions.successMessaje = 'Se ha actualizado su informacion personal';
         return (await this.genericService.servicioRestGenericoGet(persona, CRUD_PERSONA, requestOptions)) as ModeloPersona[];
     }
 

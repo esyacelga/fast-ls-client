@@ -35,14 +35,12 @@ export class LoginService {
             this.svrFB.login(['email', 'public_profile']).then((responce: FacebookLoginResponse) => {
                 const credencialFB = auth.FacebookAuthProvider.credential(responce.authResponse.accessToken);
                 this.svrAuth.auth.signInWithCredential(credencialFB).then((objResponce) => {
-                    this.utils.presentToast(JSON.stringify(objResponce), COLOR_TOAST_MEDIUM);
                     resolve(objResponce);
                 }, error => {
                     this.utils.presentToast(JSON.stringify(error), COLOR_TOAST_ERROR);
                     reject(error);
                 });
             }, (error) => {
-                console.error(error);
                 this.utils.presentToast(JSON.stringify(error), COLOR_TOAST_DARK);
             });
         });

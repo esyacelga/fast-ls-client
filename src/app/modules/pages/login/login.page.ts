@@ -18,6 +18,7 @@ import {ModeloTipoUsuarioPersona, TipoUsuarioPersonaDto} from '../../classes/per
 import {Router} from '@angular/router';
 import {LoginService} from '../../services/persona/login.service';
 import {GoogleObject} from '../../classes/login/GoogleObject';
+import {environment} from '../../../../environments/environment';
 
 @Component({
     selector: 'app-login',
@@ -25,6 +26,7 @@ import {GoogleObject} from '../../classes/login/GoogleObject';
     styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+    esProduccion = environment.production;
     objetoLogin = new RegistroTipoUsuarioPersona();
     objTipoUsuario = new TipoUsuario();
     lstSectores: Array<Sector>;
