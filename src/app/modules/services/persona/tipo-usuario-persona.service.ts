@@ -2,18 +2,9 @@ import {Injectable} from '@angular/core';
 import {ExecuteCallProcedureService} from '../../system/generic/service/execute-call-procedure.service';
 import {ModeloTipoUsuarioPersona, TipoUsuarioPersona, TipoUsuarioPersonaDto} from '../../classes/persona/TipoUsuarioPersona';
 import {RequestOptions} from '../../system/generic/classes/RequestOptions';
-import {
-    CRUD_TIPO_USUARIO_PERSONA,
-    CRUD_TIPO_USUARIO_PERSONA_ACTUALIZAR_FOTO,
-    CRUD_TIPO_USUARIO_PERSONA_INSERTAR
-} from '../../constantes/ConstanteTransaccional';
+import {CRUD_TIPO_USUARIO_PERSONA, CRUD_TIPO_USUARIO_PERSONA_ACTUALIZAR_FOTO, CRUD_TIPO_USUARIO_PERSONA_INSERTAR} from '../../constantes/ConstanteTransaccional';
 import {Sector} from '../../classes/persona/Sector';
-import {
-    OBTENER_TODOS_PERSONA_TIPO_USUARIO,
-    OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_CORREO,
-    OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_PERSONA,
-    OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_TIPO_USUARIO
-} from '../../constantes/ConstanteConsulta';
+import {OBTENER_TODOS_PERSONA_TIPO_USUARIO, OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_CORREO, OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_PERSONA, OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_TIPO_USUARIO} from '../../constantes/ConstanteConsulta';
 import {Pedido} from '../../classes/mensajeria/Pedido';
 import {Util} from '../../system/generic/classes/util';
 import {COLOR_TOAST_WARNING} from '../../system/generic/classes/constant';
@@ -34,6 +25,8 @@ export class TipoUsuarioPersonaService {
      */
     async obtenerPorCorreo(email: string) {
         const requestOptions = new RequestOptions();
+        requestOptions.presentarToast = false;
+        requestOptions.mostrarLoading = false;
         const objTipoUsuarioPersona: ModeloTipoUsuarioPersona =
             (await this.genericService.servicioRestGenericoGet({correo: email}, OBTENER_TODOS_PERSONA_TIPO_USUARIO_POR_CORREO, requestOptions)) as ModeloTipoUsuarioPersona;
         return objTipoUsuarioPersona;
@@ -64,6 +57,7 @@ export class TipoUsuarioPersonaService {
 
     async registarGoogle(tipoUsuarioPersona: TipoUsuarioPersonaDto) {
         const requestOptions = new RequestOptions();
+        requestOptions.successMessaje = 'Gracias por registrarse, este proceso nos ayudará a mejorar nuestro servicio   ';
         return await this.genericService.servicioRestGenericoPost(tipoUsuarioPersona, CRUD_TIPO_USUARIO_PERSONA, requestOptions) as Sector;
     }
 

@@ -24,6 +24,8 @@ export class SectorService {
 
     async obtenerSectores() {
         const requestOptions = new RequestOptions();
+        requestOptions.mostrarLoading = false;
+        requestOptions.presentarToast = false;
         return (await this.genericService.servicioRestGenericoGet({}, OBTENER_TODOS_SECTOR, requestOptions)) as Sector[];
     }
 

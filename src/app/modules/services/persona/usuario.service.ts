@@ -41,6 +41,8 @@ export class UsuarioService {
         usuario.playerId = this.svrPush.playerId;
         const requestOptions = new RequestOptions();
         console.error('Esto es el objeto Usuario', usuario);
+        requestOptions.presentarToast = false;
+        requestOptions.mostrarLoading = false;
         await this.genericService.servicioRestGenericoGet(usuario, CRUD_USUARIO, requestOptions);
     }
 

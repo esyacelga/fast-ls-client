@@ -24,7 +24,7 @@ export class TipoArticuloClientService {
 
     async obtenerTipoArticulos() {
         const requestOptions = new RequestOptions();
-        requestOptions.mostrar = 0;
+        requestOptions.mostrarLoading = false;
         return await this.genericService.servicioRestGenericoGet({}, URL_OBTENER_TODOS_ARTICULO, requestOptions);
     }
 

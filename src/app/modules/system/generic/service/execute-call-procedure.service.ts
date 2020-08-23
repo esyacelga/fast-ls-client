@@ -1,14 +1,5 @@
 import {Injectable} from '@angular/core';
-import {
-    COLOR_TOAST_ERROR,
-    COLOR_TOAST_PRIMARY,
-    DURATION_TOAST,
-    ERROR_MESSAGE,
-    LOAD_MESSAGE,
-    PROC_GET_XML_GENERICO,
-    PROC_XML_REST_GENERICO,
-    SUCCESS_MESSAGE
-} from '../classes/constant';
+import {COLOR_TOAST_ERROR, COLOR_TOAST_PRIMARY, DURATION_TOAST, ERROR_MESSAGE, LOAD_MESSAGE, PROC_GET_XML_GENERICO, PROC_XML_REST_GENERICO, SUCCESS_MESSAGE} from '../classes/constant';
 import {ToastController} from '@ionic/angular';
 import {RequestOptions} from '../classes/RequestOptions';
 import {LoadingService} from './loading.service';
@@ -143,15 +134,21 @@ export class ExecuteCallProcedureService {
             if (options.toastColor === undefined) {
                 options.toastColor = COLOR_TOAST_PRIMARY;
             }
-            if (options.mostrar === undefined) {
-                options.mostrar = 1;
+            if (options.presentarToast === undefined) {
+                options.presentarToast = false;
             }
-            if (options.mostrar === 1) {
-                await this.loading.present('messagesService.loadMessagesOverview', 'Procesando...');
+            if (options.mostrarLoading === undefined) {
+                options.mostrarLoading = true;
+            }
+            if (options.mostrarLoading === true) {
+                await this.loading.present('messagesService.loadMessagesOverview', options.loadingMessage);
             }
             this.restConnection.genericGetRestFull(genericObject, urlRestService).subscribe(async resp => {
-                if (options.mostrar === 1) {
-                    this.loading.dismiss('messagesService.loadMessagesOverview');
+                if (options.mostrarLoading === true) {
+                    await this.loading.dismiss('messagesService.loadMessagesOverview');
+                }
+                if (options.presentarToast === true) {
+                    this.presentToast(options.successMessaje, options.toastColor);
                 }
                 let obj = null;
                 if (options.responseType === 1) {
@@ -225,13 +222,19 @@ export class ExecuteCallProcedureService {
                 messages.toastColor = COLOR_TOAST_PRIMARY;
             }
             if (messages.presentarToast === undefined) {
-                messages.presentarToast = true;
+                messages.presentarToast = false;
             }
-
-            await this.loading.present('messagesService.loadMessagesOverview', messages.loadingMessage);
+            if (messages.mostrarLoading === undefined) {
+                messages.mostrarLoading = true;
+            }
+            if (messages.mostrarLoading === true) {
+                await this.loading.present('messagesService.loadMessagesOverview', messages.loadingMessage);
+            }
             if (!genericObject._id) {
                 this.restConnection.genericPostRestFull(genericObject, urlRestService).subscribe(async resp => {
-                    await this.loading.dismiss('messagesService.loadMessagesOverview');
+                    if (messages.mostrarLoading === true) {
+                        await this.loading.dismiss('messagesService.loadMessagesOverview');
+                    }
                     if (messages.presentarToast === true) {
                         this.presentToast(messages.successMessaje, messages.toastColor);
                     }

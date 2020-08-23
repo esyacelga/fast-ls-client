@@ -92,7 +92,7 @@ export class ArticuloSlideComponent implements OnInit {
 
     async seleccionarArticulo(item: Articulo) {
         this.objArticulo = item;
-        const lstPedido: Pedido[] = (await this.svrSolicitud.obtenerPedidos() as Pedido[]);
+        const lstPedido: Pedido[] = (await this.svrSolicitud.obtenerPedidoPorUsuario(this.modeloPersonaTipoUsuario.usuario._id) as Pedido[]);
         if (lstPedido.length === 0) {
             this.utilSvr.presentToast('Para generar su primer pedido y mejorar nuestro servicio debe actualizar la informacion solicitada', COLOR_TOAST_PRIMARY);
             this.activarPanel();

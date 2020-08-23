@@ -37,6 +37,7 @@ export class TipoUsuarioService {
             campo,
             valor
         };
+        requestOptions.presentarToast = false;
         return await this.genericService.servicioRestGenericoGet(filtro, OBTENER_TIPO_USUARIO, requestOptions);
     }
 }

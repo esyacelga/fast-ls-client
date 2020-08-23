@@ -5,6 +5,7 @@ import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase';
 import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook/ngx';
+import {COLOR_TOAST_DARK, COLOR_TOAST_ERROR, COLOR_TOAST_MEDIUM} from '../../system/generic/classes/constant';
 
 @Injectable({
     providedIn: 'root'
@@ -21,20 +22,31 @@ export class LoginService {
 
 
     loginWithGoogle() {
+        console.log('loginWithGoogle');
         return this.google.login({}).then(result => {
             const userDataGoogle = result;
+            console.log(result);
             return this.svrAuth.auth.signInWithCredential(auth.GoogleAuthProvider.credential(null, userDataGoogle.accessToken));
         });
     }
 
     loginWithFaceBook() {
-        console.log('Ingreso al metodo');
-        return this.svrFB.login(['email', 'public_profile']).then((responce: FacebookLoginResponse) => {
-            console.log(responce);
-            const credencialFB = auth.FacebookAuthProvider.credential(responce.authResponse.accessToken);
-            console.log(credencialFB);
-            return this.svrAuth.auth.signInWithCredential(credencialFB);
+        const promesa = new Promise(async (resolve, reject) => {
+            this.svrFB.login(['email', 'public_profile']).then((responce: FacebookLoginResponse) => {
+                const credencialFB = auth.FacebookAuthProvider.credential(responce.authResponse.accessToken);
+                this.svrAuth.auth.signInWithCredential(credencialFB).then((objResponce) => {
+                    this.utils.presentToast(JSON.stringify(objResponce), COLOR_TOAST_MEDIUM);
+                    resolve(objResponce);
+                }, error => {
+                    this.utils.presentToast(JSON.stringify(error), COLOR_TOAST_ERROR);
+                    reject(error);
+                });
+            }, (error) => {
+                console.error(error);
+                this.utils.presentToast(JSON.stringify(error), COLOR_TOAST_DARK);
+            });
         });
+        return promesa;
     }
 
 }
