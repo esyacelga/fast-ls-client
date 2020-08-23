@@ -51,9 +51,6 @@ export class LoginPage implements OnInit {
     async loginFaceBook() {
         const objUsuario: GoogleObject = (await this.svrLogin.loginWithFaceBook() as GoogleObject);
         if (objUsuario) {
-            this.util.presentToast(JSON.stringify(objUsuario), COLOR_TOAST_WARNING);
-        }
-        if (objUsuario) {
             await this.validarLogin(objUsuario);
         }
     }

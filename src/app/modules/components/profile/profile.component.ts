@@ -108,6 +108,7 @@ export class ProfileComponent implements OnInit {
             }
             await this.svrPersona.actualizarPersona(this.tipoUsuarioPersona);
             const objTipoUsuarioPersona: ModeloTipoUsuarioPersona = (await this.svtTipoUsuariPersona.obtenerPorCorreo(this.modeloPersonaTipoUsuario.persona.correo) as ModeloTipoUsuarioPersona);
+            this.svrStorage.eliminarTodo();
             this.svrStorage.setStorageObject(objTipoUsuarioPersona, 'usuario');
         } else {
             this.util.presentToast('Por favor ingrese la información solicitada', COLOR_TOAST_DARK);

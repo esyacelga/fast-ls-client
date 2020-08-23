@@ -53,10 +53,13 @@ export class Util {
     }
 
 
-    public async presentToast(mensaje, color) {
+    public async presentToast(mensaje, color, position?) {
+        if (!position) {
+            position = 'top';
+        }
         const toast = await this.notify.create({
-            position: 'top',
             message: mensaje,
+            position,
             duration: DURATION_TOAST,
             color
         });

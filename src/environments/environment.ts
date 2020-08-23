@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    url: 'http://164.90.231.150:3000'
+    url: 'http://localhost:3000'
 };
 
 export const firebaseConfig = {
