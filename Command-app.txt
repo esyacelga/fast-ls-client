@@ -4,7 +4,7 @@ D:\proyectos-ionic\black-cat-ionic\key\app-key.jks -deststoretype pkcs12
 
 
 inocic cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=ec.com.esyacelga --variable WEB_APPLICATION_CLIENT_ID=816831801588-b3gtvvukhubg39b2mei5li8tf5jjjaij.apps.googleusercontent.com
-ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="966329937142368" --variable APP_NAME="Fast-LS"
+ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="966329937142368" --variable APP_NAME="Volarys"
 
 AngularFireModule.initializeApp(environment)
 
